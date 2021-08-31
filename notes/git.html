@@ -8,7 +8,7 @@
     <link rel="stylesheet" href="/assets/style.ff42e96d.css">
     <link rel="modulepreload" href="/assets/Home.6e9f1570.js">
     <link rel="modulepreload" href="/assets/app.3dad9d32.js">
-    <link rel="modulepreload" href="/assets/notes_git.md.ffa27aea.lean.js">
+    <link rel="modulepreload" href="/assets/notes_git.md.e017bbfd.lean.js">
     <link rel="modulepreload" href="/assets/app.3dad9d32.js">
     <meta name="twitter:title" content="配置 | yangss">
     <meta property="og:title" content="配置 | yangss">
@@ -21,7 +21,7 @@
 <span class="token function">git</span> checkout -b <span class="token operator">&lt;</span>local-branch<span class="token operator">&gt;</span> <span class="token operator">&lt;</span>remote/branch<span class="token operator">&gt;</span>
 <span class="token function">git</span> pull
 </code></pre></div><h2 id="凭据管理"><a class="header-anchor" href="#凭据管理" aria-hidden="true">#</a> 凭据管理</h2><ul><li><strong><code>git config --global credential.helper store</code></strong>: 凭证用明文的形式存放在磁盘中，并且永不过期。这意味着除非你修改了你在 Git 服务器上的密码，否则你永远不需要再次输入你的凭证信息。这种方式的缺点是你的密码是用明文的方式存放在你的 home 目录下</li><li><strong><code>git config --global credential.helper &#39;store --file ~/.my-credentials&#39;</code></strong>: &quot;store&quot; 模式可以接受一个 <code>--file &lt;path&gt;</code> 参数，可以自定义存放密码的文件路径（默认是 ~/.git-credentials ）</li><li><strong><code>git config --global credential.helper cache</code></strong>: 将凭证存放在内存中一段时间。 密码永远不会被存储在磁盘中，并且在15分钟后从内存中清除。</li><li><strong><code>git config --global credential.helper &#39;cache --time 3600&#39;</code></strong>: &quot;cache&quot; 模式有 <code>--timeout &lt;seconds&gt;</code> 参数，可以设置后台进程的存活时间（默认是 900，也就是 15 分钟）</li></ul></div></div><footer class="page-footer" data-v-8fcebc32 data-v-5c96fb00><div class="edit" data-v-5c96fb00><div class="edit-link" data-v-5c96fb00 data-v-55695e90><!----></div></div><div class="updated" data-v-5c96fb00><!----></div></footer><div class="next-and-prev-link" data-v-8fcebc32 data-v-e65a9748><div class="container" data-v-e65a9748><div class="prev" data-v-e65a9748><a class="link" href="/notes/nginx" data-v-e65a9748><svg xmlns="http://www.w3.org/2000/svg" viewbox="0 0 24 24" class="icon icon-prev" data-v-e65a9748><path d="M19,11H7.4l5.3-5.3c0.4-0.4,0.4-1,0-1.4s-1-0.4-1.4,0l-7,7c-0.1,0.1-0.2,0.2-0.2,0.3c-0.1,0.2-0.1,0.5,0,0.8c0.1,0.1,0.1,0.2,0.2,0.3l7,7c0.2,0.2,0.5,0.3,0.7,0.3s0.5-0.1,0.7-0.3c0.4-0.4,0.4-1,0-1.4L7.4,13H19c0.6,0,1-0.4,1-1S19.6,11,19,11z"></path></svg><span class="text" data-v-e65a9748>Nginx</span></a></div><div class="next" data-v-e65a9748><!----></div></div></div><!--[--><!--]--></div></main></div><!----><!--]--></div>
-    <script>__VP_HASH_MAP__ = JSON.parse("{\"readme.md\":\"f727b570\",\"bookmarks.md\":\"15ca5012\",\"index.md\":\"db65eac2\",\"projects.md\":\"9a2917ac\",\"articles_index.md\":\"5b9f8c57\",\"notes_git.md\":\"ffa27aea\",\"notes_index.md\":\"7c552054\",\"notes_nginx.md\":\"cd7dbcb4\"}")</script>
+    <script>__VP_HASH_MAP__ = JSON.parse("{\"readme.md\":\"26db7294\",\"bookmarks.md\":\"c850dbab\",\"index.md\":\"b7ddaf16\",\"projects.md\":\"9a663c33\",\"articles_index.md\":\"3d5091dd\",\"notes_git.md\":\"e017bbfd\",\"notes_index.md\":\"2377e707\",\"notes_nginx.md\":\"d0d72e1b\"}")</script>
     <script type="module" async src="/assets/app.3dad9d32.js"></script>
   </body>
 </html>
