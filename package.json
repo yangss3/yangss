@@ -1,0 +1,34 @@
+{
+  "name": "yangss",
+  "version": "0.0.0",
+  "scripts": {
+    "dev": "vitepress dev",
+    "build": "vue-tsc --noEmit && vitepress build",
+    "serve": "vitepress serve",
+    "prepare": "husky install"
+  },
+  "devDependencies": {
+    "@iconify/json": "^1.1.351",
+    "@types/node": "^14.14.31",
+    "@yangss/eslint-config-vue": "^0.1.7",
+    "@yangss/init-git-repo": "^0.0.7",
+    "eslint": "^7.32.0",
+    "husky": "^7.0.2",
+    "lint-staged": "^11.1.2",
+    "postcss-preset-env": "^6.7.0",
+    "typescript": "^4.4.2",
+    "unplugin-icons": "^0.7.3",
+    "unplugin-vue-components": "^0.14.5",
+    "vite-plugin-windicss": "^1.3.0",
+    "vitepress": "^0.16.1",
+    "vue-tsc": "^0.3.0",
+    "windicss": "^3.1.7"
+  },
+  "dependencies": {
+    "@vueuse/core": "^6.0.0",
+    "prism-theme-vars": "^0.2.2"
+  },
+  "lint-staged": {
+    "*.(ts|tsx|vue)": "eslint --fix"
+  }
+}
