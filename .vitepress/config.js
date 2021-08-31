@@ -23,6 +23,7 @@ const sidebar = {
  * @type {import('vitepress').UserConfig}
  */
 module.exports = {
+  base: '/yangss/',
   title: 'yangss',
   /**
    * @type {import('vitepress').DefaultTheme.Config}
