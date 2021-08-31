@@ -2,7 +2,7 @@
   <Layout>
     <template #navbar-search>
       <div class="flex space-x-5 ml-5">
-        <IconBtn title="Bookmarks" route="/bookmarks">
+        <IconBtn title="Bookmarks" :route="withBase('/bookmarks')">
           <mdi:bookmark-outline />
         </IconBtn>
         <IconBtn title="GitHub" link="https://github.com/yangss3">
@@ -16,5 +16,6 @@
 
 <script lang="ts" setup>
 import DefaultTheme from 'vitepress/theme'
+import { withBase } from 'vitepress'
 const { Layout } = DefaultTheme
 </script>

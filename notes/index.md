@@ -4,5 +4,5 @@ sidebar: false
 
 # Notes
 
-- [nginx](/notes/nginx.md)
-- [git](/notes/git.md)
+- [nginx](./nginx.md)
+- [git](./git.md)

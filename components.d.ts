@@ -5,8 +5,6 @@ declare module 'vue' {
   export interface GlobalComponents {
     DarkModeSwitch: typeof import('D:/Projects/packages/yangss/.vitepress/theme/components/DarkModeSwitch.vue')['default']
     'Eva:githubOutline': typeof import('~icons/eva/github-outline')['default']
-    HelloWorld: typeof import('D:/Projects/packages/yangss/.vitepress/theme/components/HelloWorld.vue')['default']
-    'Ic:outlineArticle': typeof import('~icons/ic/outline-article')['default']
     IconBtn: typeof import('D:/Projects/packages/yangss/.vitepress/theme/components/IconBtn.vue')['default']
     Layout: typeof import('D:/Projects/packages/yangss/.vitepress/theme/components/Layout.vue')['default']
     'Mdi:bookmarkOutline': typeof import('~icons/mdi/bookmark-outline')['default']
