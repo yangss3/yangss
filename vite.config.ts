@@ -7,6 +7,9 @@ import PostCSSPresetEnv from 'postcss-preset-env'
 import { resolve } from 'path'
 
 export default defineConfig({
+  server: {
+    port: 8080
+  },
   resolve: {
     alias: {
       '@': resolve(__dirname, '.vitepress/theme')

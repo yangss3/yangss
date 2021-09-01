@@ -3,3 +3,5 @@ sidebar: false
 ---
 
 # Articles
+
+<TableOfContents />

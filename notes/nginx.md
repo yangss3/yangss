@@ -1,4 +1,5 @@
-# CentOS 环境安装 nginx
+# Nginx 相关
+## CentOS 环境安装 nginx
 
 > 新机器推荐按[官网文档](http://nginx.org/en/docs/install.html)的教程进行安装
 

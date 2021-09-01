@@ -19,6 +19,14 @@
   background: var(--c-divider-dark);
 }
 
+ul {
+  list-style: initial;
+  & li::marker {
+    color: #a2e6cc;
+  }
+}
+
+
 html.dark {
   & .custom-block {
     &.tip {
