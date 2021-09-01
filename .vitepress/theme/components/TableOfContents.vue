@@ -1,5 +1,5 @@
 <template>
-  <ul>
+  <ul class="space-y-4 mt-28px">
     <li v-for="item in list" :key="item.link">
       <a :href="withBase(item.link)">{{ item.text }}</a>
     </li>

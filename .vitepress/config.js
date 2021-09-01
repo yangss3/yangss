@@ -1,22 +1,24 @@
+/* eslint-disable @typescript-eslint/no-var-requires */
 // @ts-check
+
 const fs = require('fs')
 const path = require('path')
 
 /**
- * @param {string} p 
+ * @param {string} p
  */
-const resolvePath = p => path.resolve(__dirname, p) 
+const resolvePath = p => path.resolve(__dirname, p)
 /**
- * @param {string} filePath 
+ * @param {string} filePath
  */
-function getTitle(filePath) {
+function getTitle (filePath) {
   const content = fs.readFileSync(filePath, 'utf-8')
-  return /^#\s(?<title>.+)/.exec(content).groups?.title
+  return /^#\s(?<title>.+)/.exec(content.trimLeft()).groups?.title
 }
 /**
- * @param {string} dir 
+ * @param {string} dir
  */
-function generateSidebar(dir) {
+function generateSidebar (dir) {
   const files = fs.readdirSync(resolvePath(`../${dir}`))
   return files
     .filter(f1 => f1 !== 'index.md')

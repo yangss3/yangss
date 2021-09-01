@@ -3,14 +3,14 @@
 
 declare module 'vue' {
   export interface GlobalComponents {
-    DarkModeSwitch: typeof import('E:/notes/blog/yangss/.vitepress/theme/components/DarkModeSwitch.vue')['default']
+    DarkModeSwitch: typeof import('D:/Projects/packages/yangss/.vitepress/theme/components/DarkModeSwitch.vue')['default']
     'Eva:githubOutline': typeof import('~icons/eva/github-outline')['default']
-    IconBtn: typeof import('E:/notes/blog/yangss/.vitepress/theme/components/IconBtn.vue')['default']
-    Layout: typeof import('E:/notes/blog/yangss/.vitepress/theme/components/Layout.vue')['default']
+    IconBtn: typeof import('D:/Projects/packages/yangss/.vitepress/theme/components/IconBtn.vue')['default']
+    Layout: typeof import('D:/Projects/packages/yangss/.vitepress/theme/components/Layout.vue')['default']
     'Mdi:bookmarkOutline': typeof import('~icons/mdi/bookmark-outline')['default']
     RiMoonLine: typeof import('~icons/ri/moon-line')['default']
     RiSunLine: typeof import('~icons/ri/sun-line')['default']
-    TableOfContents: typeof import('E:/notes/blog/yangss/.vitepress/theme/components/TableOfContents.vue')['default']
+    TableOfContents: typeof import('D:/Projects/packages/yangss/.vitepress/theme/components/TableOfContents.vue')['default']
   }
 }
 
