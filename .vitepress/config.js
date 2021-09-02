@@ -33,9 +33,9 @@ function generateSidebar (dir) {
  * @type {import('vitepress').DefaultTheme.Config['nav']}
  */
 const nav = [
-  { text: 'Projects', link: '/projects', activeMatch: '^/projects' },
   { text: 'Articles', link: '/articles/', activeMatch: '^/articles/' },
-  { text: 'Notes', link: '/notes/', activeMatch: '^/notes/' }
+  { text: 'Notes', link: '/notes/', activeMatch: '^/notes/' },
+  { text: 'Projects', link: '/projects', activeMatch: '^/projects' }
 ]
 
 /**

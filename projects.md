@@ -3,4 +3,4 @@ sidebar: false
 ---
 # Projects
 
-<ProjectCard />
+<PersonalProjects class="mt-6"/>

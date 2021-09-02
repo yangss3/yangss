@@ -3,7 +3,7 @@ import DefaultTheme from 'vitepress/theme'
 import type { Theme } from 'vitepress'
 import Layout from '@/components/Layout.vue'
 import TableOfContents from '@/components/TableOfContents.vue'
-import ProjectCard from '@/components/ProjectCard.vue'
+import PersonalProjects from '@/components/PersonalProjects.vue'
 import './style/var.css'
 import './style/base.css'
 import './style/code.css'
@@ -13,6 +13,6 @@ export default <Theme> {
   Layout,
   enhanceApp: ({ app }) => {
     app.component('TableOfContents', TableOfContents)
-    app.component('ProjectCard', ProjectCard)
+    app.component('PersonalProjects', PersonalProjects)
   }
 }
