@@ -27,6 +27,7 @@ ul {
 }
 
 
+
 html.dark {
   & .custom-block {
     &.tip {
@@ -45,5 +46,21 @@ html.dark {
       color: #440303;
       background-color: #ffe6e61a;
     }
+  }
+  & table {
+    color: var(--c-text-draken);
+    & th, & td {
+      border-color: #4e5a57;
+    }
+    & tr:nth-child(2n) {
+      background-color: #191919;
+    }
+  }
+}
+
+@media (width <= 720px) {
+  .home-content {
+    max-width: 620px !important;
+    padding: 0 1.5rem !important;
   }
 }

@@ -12,3 +12,8 @@ declare module 'vitepress/theme' {
   const theme: any
   export default theme
 }
+
+declare module '~icons/*' {
+  const icon: any
+  export default icon
+}
