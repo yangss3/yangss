@@ -1,4 +1,4 @@
-# 柯里化 (currying)
+# 柯里化（Currying）
 
 [柯里化（Currying）](https://en.wikipedia.org/wiki/Currying)是一种关于函数的高阶技术，它是一种函数的转换，将一个函数调用从 `f(a, b, c)` 的形式转换为 `f(a)(b)(c)` 的调用形式。柯里化不会调用函数，它只是对函数进行转换。
 

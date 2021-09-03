@@ -1,5 +1,6 @@
 :root {
   --scrollbar-width: 6px;
+  --c-brand: #0ebdd1fc;
 }
 
 html.dark {

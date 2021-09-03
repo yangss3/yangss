@@ -6,7 +6,7 @@
       </div>
       <div>
         <div class="text-20px leading-40px font-bold">
-          <a :href="p.repo">{{ p.name }}</a>
+          <a :href="p.repo" target="_blank">{{ p.name }}</a>
         </div>
         <div class="italic text-gray-500">
           {{ p.description }}
