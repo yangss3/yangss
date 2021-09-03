@@ -1,1 +1,0 @@
-import{o as a,c as t,b as e}from"./app.a7aa7764.js";const n='{"title":"Home","description":"","frontmatter":{"home":true},"relativePath":"index.md","lastUpdated":1630593571708}',l={},o=[e("h1",null,"Nicholas Yang",-1),e("p",null,"Hey, I'm Nicholas Yang.",-1)];l.render=function(e,n,l,r,i,s){return a(),t("div",null,o)};export{n as __pageData,l as default};
