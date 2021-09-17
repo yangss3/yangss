@@ -64,3 +64,9 @@ html.dark {
     padding: 0 1.5rem !important;
   }
 }
+
+@media (width >= 720px) {
+  .sidebar > .sidebar-links > .sidebar-link + .sidebar-link {
+    padding-top: 0.5rem;
+  }
+}
