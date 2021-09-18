@@ -11,6 +11,7 @@ sidebar: false
 - [Font Playground](https://play.typedetail.com/)
 ### Picture
 - [Lorem Picsum](https://picsum.photos)
+- [Wall Haven](https://wallhaven.cc/)
 
 ### Color
 - [Colorsinspo](https://colorsinspo.com/)
@@ -23,7 +24,7 @@ sidebar: false
 - [Rico’s cheatsheets](https://devhints.io/)
 - [regexr](https://regexr.com/)
 - [regex101](https://regex101.com/)
-  
+
 ### CSS
 - [1-Line Layouts](http://1linelayouts.glitch.me/)
 - [Easing Functions](https://easings.net/)
@@ -31,5 +32,7 @@ sidebar: false
 - [Gradient CSS Generator](https://cssgenerator.org/gradient-css-generator.html)
 - [Box Shadow Generator](https://html-css-js.com/css/generator/box-shadow/)
 
+### Design
+- [Figma](https://www.figma.com/)
 ### Resume
 - [Reactive Resume](https://rxresu.me/)
