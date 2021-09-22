@@ -24,6 +24,7 @@ import WebhookIcon from '~icons/mdi/webhook'
 import WeatherIcon from '~icons/ion/partly-sunny-outline'
 import LineBreakIcon from '~icons/la/tools'
 import CreateAppIcon from '~icons/carbon/template'
+import ESlintIcon from '~icons/mdi/eslint'
 
 import { shallowRef } from 'vue'
 const projects = shallowRef([
@@ -68,6 +69,12 @@ const projects = shallowRef([
     repo: 'https://github.com/yangss3/remove-line-breaks',
     icon: LineBreakIcon,
     description: 'Remove line breaks from text in the system clipboard'
+  },
+  {
+    name: 'eslint-config',
+    repo: 'https://github.com/yangss3/eslint-config',
+    icon: ESlintIcon,
+    description: 'My eslint configuration for JS, TS and Vue'
   }
 ])
 </script>

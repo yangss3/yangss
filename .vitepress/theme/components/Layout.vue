@@ -5,7 +5,7 @@
         <IconBtn title="Bookmarks" :route="withBase('/bookmarks')">
           <mdi:bookmark-outline />
         </IconBtn>
-        <IconBtn title="GitHub" link="https://github.com/yangss3">
+        <IconBtn title="GitHub" href="https://github.com/yangss3">
           <eva:github-outline />
         </IconBtn>
         <DarkModeSwitch />
