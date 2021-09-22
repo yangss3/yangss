@@ -1,3 +1,6 @@
+/* @import url('https://fonts.font.im/css?family=Bungee+Inline'); */
+@import url('https://fonts.font.im/css?family=Bungee+Shade');
+
 * {
   scrollbar-color: var(--c-divider-light) var(--c-bg);
 }
@@ -69,4 +72,9 @@ html.dark {
   .sidebar > .sidebar-links > .sidebar-link + .sidebar-link {
     padding-top: 0.5rem;
   }
+}
+
+
+.nav-bar-title {
+  font-family: 'Bungee Shade', cursive;
 }

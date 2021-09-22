@@ -8,7 +8,7 @@ sidebar: false
 
 
 ### Font
-- [Font Playground](https://play.typedetail.com/)
+- [Google Fonts](https://fonts.google.com/)
 ### Picture
 - [Lorem Picsum](https://picsum.photos)
 - [Wall Haven](https://wallhaven.cc/)
