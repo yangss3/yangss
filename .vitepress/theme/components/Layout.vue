@@ -21,7 +21,7 @@ import { useHead } from '@vueuse/head'
 const { Layout } = DefaultTheme
 useHead({
   link: [
-    { rel: 'icon', href: '/favicon.ico' }
+    { rel: 'icon', href: withBase('/favicon.ico') }
   ]
 })
 </script>
