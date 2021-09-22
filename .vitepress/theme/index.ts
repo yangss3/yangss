@@ -1,13 +1,13 @@
 import 'virtual:windi.css'
-import './style/var.css'
-import './style/base.css'
-import './style/code.css'
 import DefaultTheme from 'vitepress/theme'
 import type { Theme } from 'vitepress'
 import Layout from '@/components/Layout.vue'
 import TableOfContents from '@/components/TableOfContents.vue'
 import PersonalProjects from '@/components/PersonalProjects.vue'
 import { createHead } from '@vueuse/head'
+// import './style/var.css'
+// import './style/base.css'
+// import './style/code.css'
 
 const head = createHead()
 

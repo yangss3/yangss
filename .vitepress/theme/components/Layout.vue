@@ -25,3 +25,9 @@ useHead({
   ]
 })
 </script>
+
+<style>
+@import '../style/var.css';
+@import '../style/base.css';
+@import '../style/code.css';
+</style>
