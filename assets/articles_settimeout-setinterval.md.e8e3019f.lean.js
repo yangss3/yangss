@@ -1,1 +1,0 @@
-import{o as n,c as s,a}from"./app.c4bae10d.js";const t='{"title":"setTimeout 和 setInterval","description":"","frontmatter":{},"relativePath":"articles/settimeout-setinterval.md","lastUpdated":1632318382520}',p={},o=[a('',22)];p.render=function(a,t,p,e,c,u){return n(),s("div",null,o)};export{t as __pageData,p as default};
