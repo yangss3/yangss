@@ -18,8 +18,8 @@
 
 <script setup lang="ts">
 import I18nIcon from '~icons/ion/language'
-import ChartIcon from '~icons/ic/baseline-area-chart'
-import GitIcon from '~icons/mdi/git'
+import ChartIcon from '~icons/mdi/chart-line'
+import GitIcon from '~icons/la/git'
 import WebhookIcon from '~icons/mdi/webhook'
 import WeatherIcon from '~icons/ion/partly-sunny-outline'
 import LineBreakIcon from '~icons/la/tools'
@@ -56,7 +56,7 @@ const projects = shallowRef([
     name: 'webhooks-server',
     repo: 'https://github.com/yangss3/webhooks-server',
     icon: WebhookIcon,
-    description: '一个基于 Github webhooks 和 nodejs 的前端项目自动部署工具'
+    description: 'An auto deployment tool for front-end projects based on Github webhooks and Nodejs'
   },
   {
     name: 'weather-cli',
@@ -74,7 +74,7 @@ const projects = shallowRef([
     name: 'eslint-config',
     repo: 'https://github.com/yangss3/eslint-config',
     icon: ESlintIcon,
-    description: 'My eslint configuration for JS, TS and Vue'
+    description: 'My own eslint configurations for JS, TS and Vue'
   }
 ])
 </script>
