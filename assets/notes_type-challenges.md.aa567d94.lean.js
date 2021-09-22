@@ -1,1 +1,0 @@
-import{o as n,c as s,a}from"./app.26d73a11.js";const t='{"title":"Type Challenges","description":"","frontmatter":{},"relativePath":"notes/type-challenges.md","lastUpdated":1632300754281}',p={},o=[a('',23)];p.render=function(a,t,p,e,c,l){return n(),s("div",null,o)};export{t as __pageData,p as default};
