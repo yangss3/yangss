@@ -17,6 +17,11 @@
 <script lang="ts" setup>
 import DefaultTheme from 'vitepress/theme'
 import { withBase } from 'vitepress'
+import { useHead } from '@vueuse/head'
 const { Layout } = DefaultTheme
+useHead({
+  link: [
+    { rel: 'icon', href: '/favicon.ico' }
+  ]
+})
 </script>
-

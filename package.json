@@ -26,6 +26,7 @@
   },
   "dependencies": {
     "@vueuse/core": "^6.0.0",
+    "@vueuse/head": "^0.6.0",
     "prism-theme-vars": "^0.2.2"
   },
   "lint-staged": {
