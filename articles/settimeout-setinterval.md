@@ -1,5 +1,5 @@
 # setTimeout 和 setInterval
-
+<PubDate date="2020/09/20"/>
 
 这里不介绍这两个函数的具体用法，主要说说周期性调度的问题。
 

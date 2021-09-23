@@ -1,4 +1,5 @@
 # 深入理解 WeakMap 和 WeakSet
+<PubDate date="2021/07/17"/>
 
 JS 引擎在值可访问（并可能被使用）时将其存储在内存中。
 

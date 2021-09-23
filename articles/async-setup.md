@@ -1,4 +1,5 @@
 # 异步 setup
+<PubDate date="2021/09/21"/>
 
 `setup` 是 Vue 3 新增的一个组件选项，它作为 Composition API 的入口函数，极大地优化了 Vue 代码的组织方式，让代码逻辑复用变得非常简单和直观。而异步的 `setup` (async setup) 可以让你在组件创建之前进行异步操作，比如从服务器获取资源和数据，但是有一些注意事项，详情请看这里的[讨论](https://github.com/vuejs/rfcs/discussions/234)。
 
