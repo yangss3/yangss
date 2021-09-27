@@ -12,6 +12,7 @@ sidebar: false
 ### Picture
 - [Lorem Picsum](https://picsum.photos)
 - [Wall Haven](https://wallhaven.cc/)
+- [unDraw](https://undraw.co/)
 
 ### Color
 - [Colorsinspo](https://colorsinspo.com/)
@@ -31,8 +32,14 @@ sidebar: false
 - [CSS3 Patterns Gallery](https://projects.verou.me/css3patterns/)
 - [Gradient CSS Generator](https://cssgenerator.org/gradient-css-generator.html)
 - [Box Shadow Generator](https://html-css-js.com/css/generator/box-shadow/)
+- [CSS Clip Path](https://bennettfeely.com/clippy/)
+- [Animista](https://animista.net/)
 
 ### Design
 - [Figma](https://www.figma.com/)
+- [One Page Love](https://onepagelove.com/)
+
+### Diagramming
+- [Diagrams](https://www.diagrams.net/)
 ### Resume
 - [Reactive Resume](https://rxresu.me/)

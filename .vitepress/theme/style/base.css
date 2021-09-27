@@ -24,9 +24,6 @@
 
 ul {
   list-style: initial;
-  & li::marker {
-    color: #a2e6cc;
-  }
 }
 
 
