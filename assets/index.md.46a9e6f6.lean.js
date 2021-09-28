@@ -1,0 +1,1 @@
+import{_ as a,c as t,o as e,d as n}from"./app.b2baf6b4.js";const r='{"title":"Home","description":"","frontmatter":{"home":true},"relativePath":"index.md","lastUpdated":1632842860093}',l={},o=[n("h1",null,"Nicholas Yang",-1),n("p",null,"Hey, I'm Nicholas Yang.",-1)];var s=a(l,[["render",function(a,n,r,l,s,i){return e(),t("div",null,o)}]]);export{r as __pageData,s as default};
