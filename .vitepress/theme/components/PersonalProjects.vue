@@ -25,6 +25,7 @@ import WeatherIcon from '~icons/ion/partly-sunny-outline'
 import LineBreakIcon from '~icons/la/tools'
 import CreateAppIcon from '~icons/carbon/template'
 import ESlintIcon from '~icons/mdi/eslint'
+import ToolBox from '~icons/mdi/toolbox-outline'
 
 import { shallowRef } from 'vue'
 const projects = shallowRef([
@@ -45,6 +46,12 @@ const projects = shallowRef([
     repo: 'https://github.com/yangss3/vue-echarts',
     icon: ChartIcon,
     description: 'A few simple ECharts components for Vue'
+  },
+  {
+    name: 'utils',
+    repo: 'https://github.com/yangss3/utils',
+    icon: ToolBox,
+    description: 'A collection of common JavaScript & TypeScript utilities'
   },
   {
     name: 'init-git-repo',

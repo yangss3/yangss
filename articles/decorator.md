@@ -1,7 +1,7 @@
 # 装饰者（Decorator）
 <PubDate date="2020/09/07"/>
 
-JavaScript 在处理函数时提供了非凡的灵活性。它们可以被传递，用作对象，现在我们将看到如何在它们之间转发调用并装饰（decorate）它们。
+JavaScript 中的函数在使用时非常灵活，它们可以像变量一样被传递到任何地方，下面我们将看到如何在它们之间转发调用并装饰它们。
 ## 透明缓存
 
 假设我们有一个 CPU 重负载的函数 `slow(x)`，但它的结果是稳定的。换句话说，对于相同的 `x`，它总是返回相同的结果。如果经常调用该函数，我们可能希望将结果缓存下来，以避免在重新计算上花费额外的时间。但是我们不是将这个功能添加到 `slow()` 中，而是创建一个包装器（wrapper）函数，该函数增加了缓存功能：
@@ -132,6 +132,7 @@ worker.slow(2) // 工作正常，使用的缓存
 const worker = {
   slow(min, max) {
     return min + max
+  }
 }
 
 // 应该记住相同参数的调用
@@ -295,7 +296,7 @@ function delay(f, ms) {
   return function(...args) {
     const savedThis = this // 将 this 存储到中间变量
     setTimeout(function() {
-      f.apply(savedThis, args) 
+      f.apply(savedThis, args)
     }, ms)
   }
 }

@@ -17,7 +17,7 @@ const x: never = 12 // ~ Type '12' is not assignable to type 'never'
 
 其次最小的集合就是只包含一个值的集合，这对应于 TypeScript 中的字面类型(literal type），例如：
 ```js
-)ype A = 'A'
+type A = 'A'
 type B = 'B'
 type Three = 3
 ```

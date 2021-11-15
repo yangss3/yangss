@@ -4,7 +4,7 @@ sidebar: false
 
 # Bookmarks
 
-> *Some of my favorite websites/tools with excellent design and UX that I highly recommend*
+> *Some of my favorite websites/tools*
 
 
 ### Font
