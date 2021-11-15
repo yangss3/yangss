@@ -6,10 +6,10 @@
     <title>深入理解 WeakMap 和 WeakSet | YangSS</title>
     <meta name="description" content="Nicholas Yang's personal blog.">
     <link rel="stylesheet" href="/yangss/assets/style.e829c237.css">
-    <link rel="modulepreload" href="/yangss/assets/Home.220af317.js">
-    <link rel="modulepreload" href="/yangss/assets/app.b2baf6b4.js">
-    <link rel="modulepreload" href="/yangss/assets/articles_weakmap-weakset.md.9f5621e4.lean.js">
-    <link rel="modulepreload" href="/yangss/assets/app.b2baf6b4.js">
+    <link rel="modulepreload" href="/yangss/assets/Home.3fb3ae18.js">
+    <link rel="modulepreload" href="/yangss/assets/app.46712d34.js">
+    <link rel="modulepreload" href="/yangss/assets/articles_weakmap-weakset.md.14d18a50.lean.js">
+    <link rel="modulepreload" href="/yangss/assets/app.46712d34.js">
     <meta name="twitter:title" content="深入理解 WeakMap 和 WeakSet | YangSS">
     <meta property="og:title" content="深入理解 WeakMap 和 WeakSet | YangSS">
   </head>
@@ -77,8 +77,8 @@ john <span class="token operator">=</span> <span class="token keyword">null</spa
   visitsCountMap<span class="token punctuation">.</span><span class="token function">set</span><span class="token punctuation">(</span>user<span class="token punctuation">,</span> count <span class="token operator">+</span> <span class="token number">1</span><span class="token punctuation">)</span>
 <span class="token punctuation">}</span>
 </code></pre></div><p>现在我们不需要去手动清理 <code>visitsCountMap</code> 了。当 <code>john</code> 对象变成不可访问时，即便它是 <code>WeakMap</code> 里的一个键，它也会连同它作为 <code>WeakMap</code> 里的键所对应的信息一同被从内存中删除。</p><h2 id="weakset" tabindex="-1">WeakSet <a class="header-anchor" href="#weakset" aria-hidden="true">#</a></h2><p><code>WeakSet</code> 的表现与 <code>WeakMap</code> 类似：</p><ul><li>只能向 <code>WeakSet</code> 添加对象，而不能是原始值</li><li>对象只有在其它地方能被访问的时候，才能留在 <code>WeakSet</code> 中</li><li>跟 <code>Set</code> 一样，<code>WeakSet</code> 支持 <code>add</code>，<code>has</code> 和 <code>delete</code> 方法，但不支持 <code>size</code> 和 <code>keys()</code>，并且不可迭代</li></ul></div></div><footer class="page-footer" data-v-8fcebc32 data-v-5c96fb00><div class="edit" data-v-5c96fb00><div class="edit-link" data-v-5c96fb00 data-v-55695e90><!----></div></div><div class="updated" data-v-5c96fb00><!----></div></footer><div class="next-and-prev-link" data-v-8fcebc32 data-v-e65a9748><div class="container" data-v-e65a9748><div class="prev" data-v-e65a9748><a class="link" href="/yangss/articles/switch-true-pattern" data-v-e65a9748><svg xmlns="http://www.w3.org/2000/svg" viewbox="0 0 24 24" class="icon icon-prev" data-v-e65a9748><path d="M19,11H7.4l5.3-5.3c0.4-0.4,0.4-1,0-1.4s-1-0.4-1.4,0l-7,7c-0.1,0.1-0.2,0.2-0.2,0.3c-0.1,0.2-0.1,0.5,0,0.8c0.1,0.1,0.1,0.2,0.2,0.3l7,7c0.2,0.2,0.5,0.3,0.7,0.3s0.5-0.1,0.7-0.3c0.4-0.4,0.4-1,0-1.4L7.4,13H19c0.6,0,1-0.4,1-1S19.6,11,19,11z"></path></svg><span class="text" data-v-e65a9748>使用 switch(ture) 模式</span></a></div><div class="next" data-v-e65a9748><!----></div></div></div><!--[--><!--]--></div></main></div><!----><!--]--></div>
-    <script>__VP_HASH_MAP__ = JSON.parse("{\"readme.md\":\"2816ac88\",\"articles_async-setup.md\":\"f7658c48\",\"articles_currying.md\":\"cc93a4a2\",\"articles_decorator.md\":\"2d5460cf\",\"articles_effective-ts.md\":\"b4c1c60c\",\"articles_index.md\":\"41d4410e\",\"articles_proxy-reflect.md\":\"02419337\",\"articles_settimeout-setinterval.md\":\"06460a6e\",\"articles_switch-true-pattern.md\":\"e4f2aa6d\",\"articles_weakmap-weakset.md\":\"9f5621e4\",\"bookmarks.md\":\"dff3c5d3\",\"index.md\":\"46a9e6f6\",\"notes_git.md\":\"e8faa351\",\"notes_index.md\":\"24a93f06\",\"notes_linux.md\":\"2b3ff8e9\",\"notes_nginx.md\":\"98dd1b7b\",\"notes_package-json.md\":\"963a0c44\",\"notes_regexp.md\":\"662ffe8b\",\"notes_type-challenges.md\":\"cdba6574\",\"notes_typescript.md\":\"2dbc0ca5\",\"projects.md\":\"a8d5ad20\"}")</script>
-    <script type="module" async src="/yangss/assets/app.b2baf6b4.js"></script>
+    <script>__VP_HASH_MAP__ = JSON.parse("{\"readme.md\":\"afeb1bc2\",\"articles_async-setup.md\":\"5cc206a4\",\"articles_currying.md\":\"e94a6453\",\"articles_decorator.md\":\"ea81434d\",\"articles_effective-ts.md\":\"49dcf571\",\"articles_index.md\":\"f087012d\",\"articles_proxy-reflect.md\":\"4e16c236\",\"articles_settimeout-setinterval.md\":\"70f565a1\",\"articles_switch-true-pattern.md\":\"fdbe7549\",\"articles_weakmap-weakset.md\":\"14d18a50\",\"bookmarks.md\":\"21790d35\",\"index.md\":\"43a50ee9\",\"notes_git.md\":\"1465b0d1\",\"notes_index.md\":\"17d8e755\",\"notes_linux.md\":\"8cae7228\",\"notes_nginx.md\":\"c1fb75a5\",\"notes_package-json.md\":\"ac9d61e6\",\"notes_regexp.md\":\"fd7dc51e\",\"notes_type-challenges.md\":\"4aa7b62a\",\"notes_typescript.md\":\"8e88d7f9\",\"projects.md\":\"38e9cb86\"}")</script>
+    <script type="module" async src="/yangss/assets/app.46712d34.js"></script>
     
   </body>
 </html>
