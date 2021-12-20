@@ -83,7 +83,7 @@ http {
 
 也可以添加多个 `server` 块来定义多个虚拟服务器。
 
-`server` 配置块通常包含一个 `listen` 指令来指定服务器要监听的请求的 IP 地址和端口。支持 IPv4 和 IPv6 地址，且需要将 IPv6 地址括在方括号中。
+`server` 配置块通常包含一个 `listen` 指令来指定服务器要监听的客户端请求的 IP 地址和端口。支持 IPv4 和 IPv6 地址，且需要将 IPv6 地址放在方括号中。
 
 例如一个监听 IP 地址为 127.0.0.1， 端口为 8080 的服务器配置块：
 
@@ -94,9 +94,9 @@ server {
 }
 ```
 
-如果省略端口，则使用标准端口。 同样，如果省略地址，则服务器将侦听所有地址。 如果根本不包含 `listen` 指令，则根据超级用户权限，“标准”端口为 `80/tcp`，“默认”端口为 `8000/tcp`。
+如果省略端口，则使用标准端口。 同样，如果省略地址，则服务器将监听所有地址。 如果不包含 `listen` 指令，则根据超级用户权限，“标准”端口为 `80/tcp`，“默认”端口为 `8000/tcp`。
 
-如果有多个 `server` 块与同一个 IP 地址和端口的请求匹配，nginx 会使用 `server` 块中 `server_name` 指令的参数来测试请求的 `Host` 头字段。 `server_name` 指令的参数可以是完整名字、通配符（一个包含 `*` 字符的字符串）或者正则表达式。
+如果有多个 `server` 块与同一个 IP 地址和端口的请求匹配，nginx 会使用 `server` 块中 `server_name` 指令来测试请求的 `Host` 头字段。 `server_name` 指令的参数可以是完整名字、通配符（一个包含 `*` 字符的字符串）或者正则表达式。
 
 ```nginx
 server {
@@ -113,7 +113,7 @@ server {
 3. 以 `*` 结尾的最长的通配符，例如 `mail.*`
 4. 第一个匹配的正则表达式（以 `server` 块出现的顺序）
 
-如果请求的 `Host` 头字段不匹配任何一个 `server_name`，nginx 会将请求路由到请求到达的端口的默认服务器。除非你在 `listen` 指令中包含 `default_server` 参数来显示指定该 `server` 块为默认服务器，否者 `nginx.conf` 文件中的第一个 `server` 块为默认服务器。
+如果请求的 `Host` 头字段不匹配任何一个 `server_name`，nginx 会将请求路由到请求到达端口的默认服务器。除非你在 `listen` 指令中包含 `default_server` 参数来明确指定该 `server` 块为默认服务器，否者 `nginx.conf` 文件中的第一个 `server` 块为默认服务器。
 
 ```nginx
 server {
@@ -123,7 +123,7 @@ server {
 
 ### Configuring Locations
 
-可以在 `server` 块中定义 `location` 块来处理具体的请求，例如将一些请求转发到某个代理服务器，再将一些请求转发到另外的代理服务器，然后对剩下的请求响应本地的静态文件。
+可以在 `server` 块中定义 `location` 块来处理具体的请求，例如将一些请求转发到某个代理服务器，再将一些请求转发到另外的代理服务器，然后对剩下的请求响应本地的静态文件等等。
 
 nginx 使用请求的 URI 来测试所有 `location` 指令的参数，然后使用匹配的 `location` 块来处理该请求。在每个 `location` 块内，通常可以（有一些例外）放置更多的 `location` 指令，以进一步优化特定请求组的处理。
 
@@ -147,7 +147,7 @@ location ~ \.html? {
 
 ### Location Priority
 
-为了找到与请求的 URI 最匹配的 `location` 块，nginx 首先比较前缀字符串类型的 `location` 块，然后再去搜寻正则表达式类型的 `location` 块。
+为了找到与请求的 URI 最匹配的 `location` 块，nginx 首先比较前缀字符串类型的 `location` 块，然后再去查找正则表达式类型的 `location` 块。
 
 除非在前缀字符串前面使用了 `^~` 修饰符，否则正则表达式具有更高的优先级。nginx 确定最佳匹配的 `location` 块的逻辑如下：
 
@@ -156,7 +156,7 @@ location ~ \.html? {
 3. 如果与 URI 匹配的最长的前缀字符串的前面存在 `^~` 修饰符，则跳过正则表达式的检查，该最长的前缀字符串为最佳匹配
 4. 保存匹配的最长前缀字符串
 5. 用 URI 测试正则表达式
-6. 当找到第一个匹配的正则表达式时，停止继续查找，该 `location` 块为最佳匹配
+6. 当找到第一个匹配的正则表达式时，停止查找，该 `location` 块为最佳匹配
 7. 如果没有找到匹配的正则表达式，使用前面匹配的最长前缀字符串对应的 `location` 块
 
 关于 `=` 修饰符，一个典型的用法是针对 `/` 的请求。如果客户端会频繁发起 URI 为 `/` 的请求，为 `location` 块指定 `= /` 作为参数，可以加速请求的处理。因为 nginx 在第一次比较后就能确定最匹配的 `location` 块：
@@ -181,7 +181,7 @@ server {
 }
 ```
 
-`root` 指令指定一个文件系统路径，指明从哪里去找要服务的文件，将与该 `location` 块匹配的请求的 URI 添加到 root 路径后面就得到要请求的文件的完整路径，例如在上面的例子中，要响应 URI
+`root` 指令指定一个文件系统路径，指明从哪里去找要服务的文件，将与该 `location` 块匹配的 URI 添加到 root 路径后面就得到要请求的文件的完整路径，例如在上面的例子中，要响应 URI
 为 `/images/example.png` 的请求，nginx 需要提供路径为 `/data/images/example.png` 的文件。
 
 `proxy_pass` 指令会将请求转发到该指令参数指定的代理服务器上，来自代理服务器的响应会被发送回客户端。上面的例子中所有 URI 不以 `/images/` 开头的请求都将被转发到代理服务器。
@@ -190,11 +190,11 @@ server {
 
 在配置文件中使用变量，可以让 nginx 根据不用的情形处理不同的请求。变量可以用作指令的参数，它在运行时阶段被解析。变量名需要以 `$` 符号开头。变量根据 nginx 的状态定义信息，例如当前正在处理的请求的属性。
 
-有很多已经定义好的变量，例如 [core HTTP](https://nginx.org/en/docs/http/ngx_http_core_module.html?&_ga=2.148382143.964290018.1595647568-1083603121.1582961132#variables) 变量，你可以使用 `set`，`map` 和 `geo` 指令定义自定义变量。 大多数变量是在运行时计算的，并且包含与特定请求有关的信息。 例如，`$remote_addr` 包含客户端 IP 地址，而 `$uri` 是当前请求的 URI 值。
+有很多已经定义好的变量，例如 [core HTTP](https://nginx.org/en/docs/http/ngx_http_core_module.html?&_ga=2.148382143.964290018.1595647568-1083603121.1582961132#variables) 变量，你可以使用 `set`，`map` 和 `geo` 指令定义自己的变量。 大多数变量是在运行时计算的，并且包含与特定请求有关的信息。 例如，`$remote_addr` 包含客户端 IP 地址，而 `$uri` 是当前请求的 URI 值。
 
 ### Returning Specific Status Codes
 
-某些网站 URI 要求立即返回带有特定错误或重定向代码的响应，例如当页面已临时或永久移动时。最简单的方法是使用 return 指令：
+某些网站 URI 要求立即返回带有特定错误或重定向代码的响应，例如当页面已临时或永久移除时，最简单的方法是使用 return 指令：
 
 ```nginx
 location /wrong/url {
@@ -241,12 +241,12 @@ server {
 }
 ```
 
-此示例配置区分两组 URI。例如诸如 `/download/some/media/file` 之类的 URI 被改写为 `/download/some/mp3/file.mp3`，由于 `last` 标志，后面的指令（第二个 `rewrite` 指令和 `return` 指令）会被跳过，但 nginx 回继续处理这个被重写了 URI 的请求。如果 URI 与任何一个 `rewrite` 指令都不匹配，则 nginx 会将 403 错误代码返回给客户端。
+此示例配置区分两组 URI。例如诸如 `/download/some/media/file` 之类的 URI 被改写为 `/download/some/mp3/file.mp3`，由于 `last` 标志，后面的指令（第二个 `rewrite` 指令和 `return` 指令）会被跳过，但 nginx 会继续处理这个被重写了 URI 的请求。如果 URI 与任何一个 `rewrite` 指令都不匹配，则 nginx 会将 403 错误代码返回给客户端。
 
 有两个参数可中断对 `rewrite` 指令的处理：
 
 - `last`: 停止执行当前 `server` 或 `location` 上下文中的 `rewrite` 指令，但是 nginx 将搜索与重写的 URI 匹配的 `location`，并且将应用新 `location` 中的 `rewrite` 指令（这意味着可以再次更改 URI）。
-- `break`: 与 `break` 指令类似，在当前上下文中停止处理 `rewrite` 指令，并取消对与新 URI 匹配的 `location` 的搜索。不执行新 `location` 中的 `rewrite` 指令。
+- `break`: 与 `last` 指令类似，在当前上下文中停止处理 `rewrite` 指令，并取消对与新 URI 匹配的 `location` 的搜索。不执行新 `location` 中的 `rewrite` 指令。
 
 ### Handling Errors
 
@@ -258,7 +258,7 @@ error_page 404 /404.html;
 
 请注意，该指令并不意味着立即返回错误（`return` 指令可以立即返回），而只是指定错误发生时的处理方式。错误代码可能来自代理服务器，也可能发生在 nginx 处理过程中（例如，当 nginx 无法找到客户端请求的文件时，显示 `404` 错误）。
 
-在以下示例中，当 nginx 无法找到页面时，它用代码 `301` 替换代码 `404`，并将客户端重定向到 `http://example.com/new/path.html`。 当客户端仍尝试使用其旧 URI 访问页面时，此配置很有用。 `301` 代码通知浏览器该页面已永久移动，并且需要在返回时自动用新地址替换旧地址：
+在以下示例中，当 nginx 无法找到页面时，它用代码 `301` 替换代码 `404`，并将客户端重定向到 `http://example.com/new/path.html`。 当客户端仍尝试使用其旧 URI 访问页面时，此配置很有用。 `301` 代码通知浏览器该页面已永久转移，并且需要在返回时自动用新地址替换旧地址：
 
 ```nginx
 location /old/path.html {
@@ -266,7 +266,7 @@ location /old/path.html {
 }
 ```
 
-以下配置是在找不到文件时将请求传递到代理服务器的示例。由于在 `error_page` 指令中的等号后没有指定状态码，因此对客户端的响应具有代理服务器返回的状态码（不一定是 404）
+以下配置是在找不到文件时将请求传递到代理服务器的示例。由于在 `error_page` 指令中的等号后没有指定状态码，因此会将代理服务器返回的状态码返回给客户端（不一定是 404）
 
 ```nginx
 server {
@@ -288,7 +288,7 @@ server {
 }
 ```
 
-`error_page` 指令指示 nginx 在找不到文件时进行内部重定向。 `error_page` 指令的最终参数中的 `$uri` 变量为当前请求的 URI，该 URI 在重定向中传递。
+`error_page` 指令指示 nginx 在找不到文件时进行内部重定向。 `error_page` 的指令参数中的 `$uri` 变量为当前请求的 URI，该 URI 在重定向中传递。
 
 例如，如果未找到 `/images/some/file`，则将其替换为 `/fetch/images/some/file`，并开始对 `location` 进行新的搜索。 最终该请求匹配到第二个 `location` 块，并被代理到 `http://backend/`。
 
@@ -320,7 +320,7 @@ server {
 
 这里，如果请求 URI 以 `/images/` 开头，nginx 会在 `/www/data/images/` 中查找对应的文件，但如果请求 URI 以 `.mp3` 或 `.mp4` 结尾，nginx 将会到 `/www/media/` 目录下去查找相应的文件，因为在匹配的 `location` 块中包含 `root` 指令，且改写了要查找的根目录。
 
-如果请求以 `/` 结尾，则 nginx 将其视为对目录的请求，并尝试在目录中查找索引文件，`index` 指令定义了索引文件的名称（默认值为 `index.html`）。继续上面的示例，如果请求 URI 为`/images/some/path/`，则 nginx 会提供文件 `/www/data/images/some/path/index.html`（如果存在）。 如果该文件不存在，则默认情况下，nginx 返回 404 状态码（Not Found）。 要将 nginx 配置为返回自动生成的目录列表，可以在 `autoindex` 指令中包含 `on` 参数：
+如果请求以 `/` 结尾，则 nginx 将其视为对目录的请求，并尝试在目录中查找索引文件，`index` 指令定义了索引文件的名称（默认值为 `index.html`）。继续上面的示例，如果请求 URI 为 `/images/some/path/`，则 nginx 会提供文件 `/www/data/images/some/path/index.html`（如果存在）。 如果该文件不存在，则默认情况下，nginx 返回 404 状态码（Not Found）。若要将 nginx 配置为返回自动生成的目录列表，可以在启用 `autoindex` 指令：
 
 ```nginx
 location /images/ {
@@ -338,7 +338,7 @@ location / {
 
 此处使用的 `$geo` 变量是通过 `geo` 指令设置的自定义变量。变量的值取决于客户端的 IP 地址。
 
-为了返回索引文件，nginx 会将索引文件的名称附加到基本 URI 之后，然后对这个新的 URI 进行内部重定向。内部重定向会导致对 `location` 的新搜索，并且可能会在另一个 `location` 中结束，如以下示例所示：
+为了返回索引文件，nginx 会将索引文件的名称附加到原先 URI 之后，然后对这个新的 URI 进行内部重定向。内部重定向会导致对 `location` 进行新的搜索，并且可能会在另一个 `location` 中结束，如以下示例所示：
 
 ```nginx
 location / {
@@ -352,11 +352,11 @@ location ~ \.php {
 }
 ```
 
-这里，如果请求的 URI 为 `/path/`，并且 `/data/path/index.html` 不存在，但 `/data/path/index.php` 存在，则对 `/path/index.php` 的内部重定向将匹配到第二个 `location`。 结果，该请求被代理。
+这里，如果请求的 URI 为 `/path/`，并且 `/data/path/index.html` 不存在，但 `/data/path/index.php` 存在，则对 `/path/index.php` 的内部重定向将匹配到第二个 `location`。 所以，该请求被代理。
 
 ### Trying Several Options
 
-[`try_files`](https://nginx.org/en/docs/http/ngx_http_core_module.html?&_ga=2.60795818.660262503.1596359668-1083603121.1582961132#try_files) 指令可用于检查指定的文件或目录是否存在。nginx 会进行内部重定向，否则会返回指定的状态码。例如，要检查是否存在与请求 URI 对应的文件，请使用 `try_files` 指令和 `$uri` 变量，如下所示：
+[`try_files`](https://nginx.org/en/docs/http/ngx_http_core_module.html?&_ga=2.60795818.660262503.1596359668-1083603121.1582961132#try_files) 指令可用于检查指定的文件或目录是否存在。nginx 会进行内部重定向，否则会返回指定的状态码。例如，要检查是否存在与请求 URI 对应的文件，可以使用 `try_files` 指令和 `$uri` 变量，如下所示：
 
 ```nginx
 server {
@@ -368,7 +368,7 @@ server {
 }
 ```
 
-该文件以 URI 的形式指定，该 URI 使用当前 `location` 或 `server` 上下文中设置的 `root` 或 `alias` 指令进行处理。 在上面的情况下，如果不存在与 `$uri` 对应的文件，则 nginx 将内部重定向到最后一个参数指定的 URI，并返回 `/www/data/images/default.gif`。
+该文件以 URI 的形式指定，该 URI 使用当前 `location` 或 `server` 上下文中设置的 `root` 或 `alias` 指令进行处理。 在上面的例子下，如果不存在与 `$uri` 对应的文件，则 nginx 将内部重定向到最后一个参数指定的 URI，并返回 `/www/data/images/default.gif`。
 
 最后一个参数也可以是状态码（直接放在等号之后）或 `location` 块的名称。在下面的示例中，如果 `try_files` 指令的所有参数指定的路径都找不到对应的文件或目录，则返回 404 错误：
 
@@ -394,7 +394,7 @@ location @backend {
 
 #### Enabling `sendfile`
 
-默认情况下，nginx 会自行处理文件传输，并在发送文件之前将文件复制到缓冲区中。启用 `sendfile` 指令会去除将数据复制到缓冲区的步骤，并允许将数据从一个文件描述符直接复制到另一个文件描述符。另外，为防止一个快速连接完全占用工作进程，可以使用 `sendfile_max_chunk` 指令将单个 `sendfile()` 调用中传输的数据量限制为 1MB（在此示例中为 1 MB）：
+默认情况下，nginx 会自行处理文件传输，并在发送文件之前将文件复制到缓冲区中。启用 `sendfile` 指令会去除将数据复制到缓冲区的步骤，并允许将数据从一个文件描述符直接复制到另一个文件描述符。另外，为防止一个快速连接完全占用工作进程，可以使用 `sendfile_max_chunk` 指令限制单个 `sendfile()` 调用中传输的数据量大小（在此示例中为 1MB）：
 
 ```nginx
 location /mp3 {
@@ -406,7 +406,7 @@ location /mp3 {
 
 ### Enabling `tcp_nopush`
 
-将 `tcp_nopush` 指令与 `sendfile on` 指令一起使用。 这使 nginx 在 `sendfile()` 获得数据块之后立即在一个数据包中发送 HTTP 响应头：
+将 `tcp_nopush` 指令与 `sendfile on` 指令一起使用，可以让 nginx 在 `sendfile()` 获得数据块之后立即在一个数据包中发送 HTTP 响应头：
 
 ```nginx
 location /mp3 {
@@ -445,9 +445,9 @@ location ~ \.php {
 
 ### Passing Request Headers
 
-默认情况下，nginx 在代理请求中会重新定义两个头字段 "Host" 和 "Connection"，并去除其值为空字符串的头字段。默认 "Host" 设置为 `$proxy_host` 变量，"Connection" 设置为 `close`。
+默认情况下，nginx 在代理请求中会重新定义两个头字段 "Host" 和 "Connection"，并去除值为空字符串的头字段。默认 "Host" 设置为 `$proxy_host` 变量，"Connection" 设置为 `close`。
 
-要更改这些设置以及修改其它头字段，请使用 `proxy_set_header` 指令。可以在 `location` 块中指定该指令。也可以在特定的 `server` 上下文或 `http` 块中指定它。例如：
+要更改这些设置以及修改其它头字段，可以使用 `proxy_set_header` 指令。可以在 `location` 块中指定该指令。也可以在特定的 `server` 上下文或 `http` 块中指定它。例如：
 ```nginx
 location /some/path/ {
     proxy_set_header Host $host;
@@ -465,7 +465,7 @@ location /some/path/ {
 }
 ```
 ### Configuring Buffers
-默认情况下，nginx 缓冲来自代理服务器的响应。响应存储在内部缓冲区中，直到接收到整个响应后才发送给客户端。 缓冲有助于优化客户端的性能，如果将响应从 nginx 同步传递到客户端，则这可能会浪费代理服务器的时间。但是，如果启用缓冲后，nginx 允许代理服务器快速处理响应，而 nginx 将响应存储的时间与客户端下载响应所需的时间一样长。
+默认情况下，nginx 缓冲来自代理服务器的响应。响应存储在内部缓冲区中，直到接收到整个响应后才发送给客户端。 缓冲有助于优化客户端的性能，如果将响应从 nginx 同步传递到客户端，这可能会浪费代理服务器的时间。但是，如果启用缓冲后，nginx 允许代理服务器快速处理响应，而 nginx 将响应存储的时间与客户端下载响应所需的时间一样长。
 
 负责启用和禁用缓冲的指令是 `proxy_buffering`。 默认情况下，它设置为 `on` 即启用了缓冲。
 
@@ -479,7 +479,7 @@ location /some/path/ {
     proxy_pass http://localhost:8000;
 }
 ```
-如果禁用了缓冲，则 nginx 会将从代理服务器接收到的响应同步发送到客户端。对于需要尽快开始接收响应的快速交互客户端，此行为可能是理想的。
+如果禁用了缓冲，则 nginx 会将从代理服务器接收到的响应同步发送到客户端。对于需要尽快开始接收响应的快速交互客户端，这可能是需要的行为。
 
 要在特定 `location` 中禁用缓冲，请 `location` 中将 `proxy_buffering` 设置为 `off`，如下：
 ```nginx

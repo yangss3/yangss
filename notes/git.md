@@ -156,13 +156,14 @@
 - **`git checkout --track <remote/branch>`**: 是上面的命令的简写，创建一个与远程 `branch` 分支同名的本地分支 `branch`，并跟踪该远程分支
 - **`git merge <branch>`**: 将指定分支合并到当前分支
 - **`git branch -d <branch>`**: 删除分支
-- **`git branch`**: 显示所有分支
+- **`git branch`**: 显示所有本地分支
 - **`git branch -v`**: 显示所有分支以及在它们上面的最后一次提交
 - **`git branch -vv`**: 显示所有本地分支跟踪远程分支的信息
 - **`git branch --merged`**: 显示已经合并到当前分支的分支
 - **`git branch --no-merged`**: 显示还未合并到当前分支的分支
-- **`git push <remote> --delete <branch>`**: 删除远程分支 `<remote>/<branch>`
+- **`git push <remote> --delete/-d <branch>`**: 删除远程 `<branch>` 分支
 - **`git push <remote> <branch>`**: 将本地分支`<branch>` 推送到远程分支，会在远程生成一个同名的分支
+- **`git branch -u <remote>/<branch>`** 将当前分支设置为跟踪远程 `<remote>/<branch>` 分支
 
 ## 打标签
 
