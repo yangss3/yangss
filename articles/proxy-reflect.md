@@ -1,4 +1,4 @@
-# Proxy 和 Reflect
+# 深入理解 Proxy 和 Reflect
 <PubDate date="2020/10/18"/>
 ## Proxy
 
@@ -661,7 +661,7 @@ let array = [1, 2, 3]
 array = new Proxy(array, {
   get(target, prop, receiver) {
     if (prop < 0) {
-      // prop 是 string, 需要先将它转换成 number 
+      // prop 是 string, 需要先将它转换成 number
       prop = +prop + target.length
     }
     return Reflect.get(target, prop, receiver)

@@ -1,4 +1,4 @@
-# Effective TypeScript
+# 深入理解 TypeScript 的类型系统
 
 ## 把类型看作值的集合
 把 TypeScript 中的类型看作一组可能的值的集合，这有助于你更好的理解 TypeScript 中的类型和类型操作。
