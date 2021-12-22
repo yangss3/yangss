@@ -1,0 +1,1 @@
+import{_ as a,c as e,o as t,d as n}from"./app.fe600bf7.js";const r='{"title":"Home","description":"","frontmatter":{"home":true},"relativePath":"index.md","lastUpdated":1640183480160}',l={},o=[n("h1",null,"Nicholas Yang",-1),n("p",null,"Hey, I'm Nicholas Yang.",-1)];var s=a(l,[["render",function(a,n,r,l,s,i){return t(),e("div",null,o)}]]);export{r as __pageData,s as default};
