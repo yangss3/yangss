@@ -11,9 +11,14 @@ const resolvePath = p => path.resolve(__dirname, p)
 /**
  * @param {string} filePath
  */
-function getTitle (filePath) {
-  const content = fs.readFileSync(filePath, 'utf-8')
-  return /^#\s(?<title>.+)/.exec(content.trimLeft()).groups?.title
+function getFileInfo (filePath) {
+  const content = fs.readFileSync(resolvePath(`../${filePath}`), 'utf-8')
+  const groups = /^#\s+(?<title>.+)\s+(?:<PubDate.+"(?<date>.+)".*>|.*)/.exec(content.trimLeft()).groups
+  return {
+    text: groups.title,
+    date: groups.date || '2000/01/01',
+    link: `/${filePath.slice(0, -3)}`
+  }
 }
 /**
  * @param {string} dir
@@ -22,25 +27,18 @@ function generateSidebar (dir) {
   const files = fs.readdirSync(resolvePath(`../${dir}`))
   return files
     .filter(f1 => f1 !== 'index.md')
-    .map(f2 => ({
-      text: getTitle(resolvePath(`../${dir}/${f2}`)),
-      link: `/${dir}/${f2.slice(0, -3)}`
-    }))
+    .map(f2 => getFileInfo(`${dir}/${f2}`))
+    .sort((i1, i2) => +new Date(i2.date) - +new Date(i1.date))
 }
 
 
-/**
- * @type {import('vitepress').DefaultTheme.Config['nav']}
- */
 const nav = [
   { text: 'Articles', link: '/articles/', activeMatch: '^/articles/' },
   { text: 'Notes', link: '/notes/', activeMatch: '^/notes/' },
   { text: 'Projects', link: '/projects', activeMatch: '^/projects' }
 ]
 
-/**
- * @type {import('vitepress').DefaultTheme.Config['sidebar']}
- */
+
 const sidebar = {
   '/notes/': generateSidebar('notes'),
   '/articles/': generateSidebar('articles')
@@ -53,9 +51,6 @@ module.exports = {
   base: '/yangss/',
   title: 'YangSS',
   description: "Nicholas Yang's personal blog.",
-  /**
-   * @type {import('vitepress').DefaultTheme.Config}
-   */
   themeConfig: {
     nav,
     sidebar

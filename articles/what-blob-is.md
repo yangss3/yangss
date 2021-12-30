@@ -1,5 +1,6 @@
 # Blob 是什么？
-<PubDate date="2021/12/22"/>
+<PubDate date="2021/11/22"/>
+
 前面讲到了 `ArrayBuffer` 和 `TypedArray` 等概念，它们属于 ECMA 标准，是 JavaScript 的一部分。
 
 而在浏览器中，也有一个用于描述二进制数据的对象，即 `Blob` (Binary large object)。它是一个不可变的包含原始数据的类文件对象。`Blob` 的主要作用是方便在浏览器中进行文件操作，例如上传，下载，图片展示等等。

@@ -1,5 +1,6 @@
-# 使用 switch(ture) 模式
-<PubDate date="2021/09/22"/>
+# 妙用 switch(true)
+<PubDate date="2021/12/25"/>
+
 > [原文地址](https://seanbarry.dev/posts/switch-true-pattern)
 
 ## Fundamental principle

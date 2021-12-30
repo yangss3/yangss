@@ -1,5 +1,5 @@
 # 深入理解 ArrayBuffer 和 TypedArray
-<PubDate date="2021/12/21"/>
+<PubDate date="2021/11/17"/>
 
 在 Web 开发中，我们经常有处理文件的需求，例如图片处理，文件上传/下载等等，这时我们可能需要和二进制数据(binary data)打交道，但这往往会让人头疼，因为 JavaScript 中有很多和二进制相关的内置对象，例如：`ArrayBuffer`, `Uint8Array`, `DataView` 等等。它们分别代表什么？有什么区别？该怎么使用它们？下面就来缕一缕。
 

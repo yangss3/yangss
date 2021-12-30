@@ -1,5 +1,5 @@
-# 柯里化（Currying）
-<PubDate date="2021/05/17"/>
+# 什么是柯里化 (Currying)？
+<PubDate date="2020/10/17"/>
 
 [柯里化（Currying）](https://en.wikipedia.org/wiki/Currying)是一种关于函数的高阶技术，它是一种函数的转换，将一个函数调用从 `f(a, b, c)` 的形式转换为 `f(a)(b)(c)` 的调用形式。柯里化不会调用函数，它只是对函数进行转换。
 
@@ -8,7 +8,7 @@
 我们将创建一个辅助函数 `curry(f)`，该函数将对两个参数的函数 `f` 执行柯里化。换句话说，对于两个参数的函数 `f(a, b)` 执行 `curry(f)` 会将其转换为以 `f(a)(b)` 形式运行的函数：
 ```js
 // curry(f) 执行柯里化转换
-function curry(f) { 
+function curry(f) {
   return function(a) {
     return function(b) {
       return f(a, b)

@@ -1,4 +1,4 @@
-# 深入理解 Proxy 和 Reflect
+# 详解 Proxy 和 Reflect
 <PubDate date="2020/10/18"/>
 ## Proxy
 
