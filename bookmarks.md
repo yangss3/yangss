@@ -38,6 +38,8 @@ sidebar: false
 ### Design
 - [Figma](https://www.figma.com/)
 - [One Page Love](https://onepagelove.com/)
+- [HaiKei](https://app.haikei.app/)
+- [Waves](https://getwaves.io/)
 
 ### Diagramming
 - [Diagrams](https://www.diagrams.net/)

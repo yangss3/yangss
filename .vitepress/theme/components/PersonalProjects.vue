@@ -1,14 +1,19 @@
 <template>
   <div class="grid gap-x-4 md:grid-cols-2 sm:grid-cols-1">
-    <div v-for="(p, i) in projects" :key="i" class="p-4 flex flex">
-      <div class="text-32px mr-5 pt-2 text-teal-700">
+    <div v-for="(p, i) in projects" :key="i" class="p-4 flex flex transition-colors duration-800 text-gray-500 dark:hover:text-gray-200 hover:text-[#0ebdd1fc]">
+      <div class="text-32px mr-5 pt-2">
         <component :is="p.icon" />
       </div>
       <div>
         <div class="text-20px leading-40px font-bold">
-          <a :href="p.repo" target="_blank">{{ p.name }}</a>
+          <a
+            :href="p.repo"
+            target="_blank"
+            class="hover:text-[#0ebdd1fc]"
+            style="--c-brand: ''"
+          >{{ p.name }}</a>
         </div>
-        <div class="italic text-gray-500">
+        <div class="italic">
           {{ p.description }}
         </div>
       </div>
