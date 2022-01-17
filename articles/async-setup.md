@@ -4,6 +4,7 @@
 `setup` 是 Vue 3 新增的一个组件选项，它作为 Composition API 的入口函数，极大地优化了 Vue 代码的组织方式，让代码逻辑复用变得非常简单和直观。而异步的 `setup` (async setup) 可以让你在组件创建之前进行异步操作，比如从服务器获取资源和数据，但是有一些注意事项，详情请看这里的[讨论](https://github.com/vuejs/rfcs/discussions/234)。
 
 ## 一个例子
+
 先看一个例子：
 ```js
 import { ref, watch, onMounted, onUnmounted } from 'vue'
@@ -17,14 +18,14 @@ export default {
     // OK!
     onMounted(() => console.log('Mounted'))
 
-    // the await statement
-    await someAsyncFunction() // <-----------
+    // 等待异步任务
+    await someAsyncFunction()
 
-    // does NOT work!
+    // 下面不会正常调用!
     onUnmounted(() => console.log('Unmounted'))
 
-    // still works, but does not auto-dispose
-    // after the component is destroyed (memory leak!)
+    // 可以正常工作，但是可能造成内存泄漏
+    // 因为在组件被销毁后不会自动 dispose
     watch(counter, () => console.log(counter.value * 2))
   }
 }
@@ -41,7 +42,8 @@ export default {
 - ...
 
 ## 背后机制
-以 `onMounted` 为例。如我们所知，`onMounted` 是一个钩子函数（hook），在当前组件被挂载（mounted）时，执行注册的 listener 函数。请注意，`onMounted`（以及其它的组合API）是全局的，这里所说的"全局"是指它可以被导入并在任何地方被调用——没有本地的上下文与它绑定。
+
+以 `onMounted` 为例。如我们所知，`onMounted` 是一个钩子函数（hook），在当前组件被挂载（mounted）时，执行注册的 listener 函数。请注意，`onMounted`（以及其它的组合 API）是全局的，这里所说的"全局"是指它可以被导入到任何模块中被调用——即没有本地的上下文与它绑定。
 ```js
 // local: `onMounted` 是组件实例的方法，绑定到组件上下文
 component.onMounted(/* ... */)
@@ -84,17 +86,18 @@ export function onMounted(fn) {
   currentInstance.onMounted(fn)
 }
 ```
-这样，只要在组件的 setup 里面调用 `onMounted`，就能拿到当前组件的实例。
+这样，只要在组件的 `setup` 里面调用 `onMounted`，就能拿到当前组件的实例。
 
 
 ## 异步 setup 的局限
-到目前为止一切都正常，这是基于 JavaScript 是单线程的这一事实。单线程的原子性确保以下语句会紧挨着执行，换句话说，你不可能在同一时间意外地修改 currentInstance：
+
+如果 `setup` 是同步的，那一切都保持正常，这是基于 JavaScript 是单线程的这一事实。单线程的原子性确保以下语句会紧挨着执行，换句话说，你不可能在同一时间意外地修改 currentInstance：
 ```js
 currentInstance = instance
 component.setup()
 currentInstance = prev
 ```
-但当 setup 函数是异步的时候，情况就变了。每当 await 一个 promise 时，你可以认为 JS 引擎暂停了这里的工作，去做另一个任务。而在这个等待的时间段内，原子性会丢失，其它组件的创建将不可预测地会改变全局变量，最终导致混乱:
+但当 `setup` 函数是异步的时候，情况就变了。每当 await 一个 promise 时，你可以认为 JS 引擎暂停了这里的工作，去做另一个任务。而在这个等待的时间段内，原子性会丢失，其它组件的创建将不可预测地会改变全局变量，最终导致混乱:
 
 
 ```js
@@ -115,13 +118,13 @@ console.log(4)
 // (awaiting)
 // 2
 ```
-异步的 setup 函数不会阻塞后面的任务, 但 setup 内的第一个 await statement 之后的代码，将在异步任务完成之后才会被执行， 这时 setup 函数已经 return，这意味着第一个 await statement 之后的代码将拿不到当前组件实例。
+异步的 `setup` 函数不会阻塞后面的任务, 但 `setup` 内的第一个 await statement 之后的代码，将在异步任务完成之后才会被执行， 这时 `setup` 函数已经 return，这意味着第一个 await statement 之后的代码将拿不到当前组件实例。
 
 ## 解决方案
 ### 记住并避免它
 当然，这是一个显而易见的解决方案。将所有的 effect 和 hooks 移到第一个 await statement 之前，并且记住在那之后不要再使用它们。
 
-幸运的是，如果你使用 ESLint，你可以启用 eslint-plugin-vue 中的 `vue/no-watch-after-await` 和 `vue/no-lifecycle-after-await` 规则，以便在出现错误时发出警告（默认情况下，插件预设中会启用这些规则）。
+幸运的是，如果你使用 ESLint，可以启用 eslint-plugin-vue 中的 `vue/no-watch-after-await` 和 `vue/no-lifecycle-after-await` 规则，以便在出现错误时发出警告（默认情况下，插件预设中会启用这些规则）。
 
 ### 显式绑定组件实例
 生命周期钩子（lifecycle hooks）实际上接受第二个参数来显式的绑定实例：
