@@ -1,8 +1,11 @@
 # 详解 Proxy 和 Reflect
 <PubDate date="2020/10/18"/>
+
+`Proxy` 和 `Reflect` 是 ES6 引入的两个新的 JavaScript 内置对象，它们提供了从语言层面修改对象行为的方式。
+
 ## Proxy
 
-一个 `Proxy` 对象包装另一个对象并拦截诸如读取/写入属性和其他操作，可以选择自行处理它们，或者透明地将操作转发给原对象。
+`Proxy` 是一个构造函数，可以通过它来创建另一个对象的代理对象，并拦截诸如读取/写入属性等其它操作，可以选择添加自己的逻辑来修改这些操作的行为，或者透明地将操作转发给原对象。
 
 语法：
 ```js
@@ -12,7 +15,7 @@ const proxy = new Proxy(target, handler)
 - `target` —— 是要包装的对象，可以是任何东西，包括函数
 - `handler` —— 代理配置：带有“钩子”的对象。比如 `get` 钩子用于读取 `target` 属性，`set` 钩子写入 `target` 属性等等
 
-对 `proxy` 进行操作时，如果在 `handler` 中存在相应的钩子，则该钩子会被调用，并且 Proxy 有机会对该操作进行代理，否则将直接对 `target` 进行操作。
+对 `proxy` 进行操作时，如果在 `handler` 中存在相应的钩子，则该钩子会被调用，并且在钩子函数中可以对操作进行代理，否则将直接对 `target` 进行操作。
 
 首先，让我们创建一个没有任何钩子的代理：
 ```js
@@ -26,20 +29,20 @@ console.log(proxy.test) // 还是 5，我们也可以从 proxy 对象读取它 (
 
 for(const key in proxy) console.log(key) // 返回 test，迭代也正常工作！ (3)
 ```
-由于没有钩子，所有对 `proxy` 的操作都直接转发给 `target`：
-1. 写入操作 `proxy.test=` 会将值写入 `target`
+由于没有定义钩子，所有对 `proxy` 的操作都直接转发给 `target`：
+1. 写入操作 `proxy.test = 5` 会将值写入 `target`
 2. 读取操作 `proxy.test` 会从 `target` 返回对应的值
 3. 迭代 `proxy` 会从 `target` 返回对应的值
 
 我们可以看到，如果没有任何钩子，`proxy` 是一个 `target` 的透明包装。
 
-`Proxy` 是一种特殊的对象。它没有自己的属性，如果 `handler` 为空，则透明地将操作转发给 `target`
+`proxy` 是一种特殊的对象，它没有自己的属性，如果 `handler` 为空，则透明地将操作转发给 `target`
 
 要激活更多功能，我们需要添加钩子来拦截操作，那我们可以用它们拦截什么？
 
-对于对象的大多数操作，JavaScript 规范中都有一个所谓的“内部方法”，它描述了最底层的工作方式。 例如 `[[Get]]`，用于读取属性的内部方法， `[[Set]]`，用于写入属性的内部方法，等等。这些方法仅在规范中使用，我们不能直接通过方法名调用它们。Proxy 钩子会拦截这些方法的调用，对于每个内部方法，下表中都有一个钩子，用于拦截对应的操作：
+对于对象的大多数操作，JavaScript 规范中都有一个对应的所谓的“内部方法”，它描述了最底层的工作方式。 例如 `[[Get]]` 是用于读取属性的内部方法， `[[Set]]` 是用于写入属性的内部方法，等等。这些方法仅在规范中使用，我们不能直接通过方法名调用它们。Proxy 钩子会拦截这些方法的调用，对于每个内部方法，都有一个对应的钩子，用于拦截对应的操作：
 
-|内部方法|Handler 方法|何时触发|
+|内部方法|Handler 钩子|何时触发|
 |:---:|:---:|:---:|
 |[[Get]]|get|读取属性|
 |[[Set]]|	set|	写入属性|
@@ -61,11 +64,11 @@ for(const key in proxy) console.log(key) // 返回 test，迭代也正常工作�
 - ……依此类推，我们将在下面的示例中看到更多内容
 
 还有其他一些不变量，例如：
-- `[[GetPrototypeOf]]` 应用于代理对象的，必须返回与 `[[GetPrototypeOf]]` 应用于被代理对象相同的值。换句话说，读取代理对象的原型必须始终返回被代理对象的原型。
+- `[[GetPrototypeOf]]` 应用于代理对象时，必须返回与 `[[GetPrototypeOf]]` 应用于被代理对象相同的值。换句话说，读取代理对象的原型必须始终返回被代理对象的原型。
 
 钩子可以拦截这些操作，但是必须遵循这些规则。不变量确保语言功能的正确和一致的行为。完整的不变量列表请查看[规范](https://tc39.es/ecma262/#sec-proxy-object-internal-methods-and-internal-slots)。如果你不做奇怪的事情，就不会违反它们。
 
-让我们看看实际示例中的工作原理。
+下面来看看常用的几个钩子的工作原理。
 
 ### 使用 `get` 钩子设置默认值
 最常见的钩子是用于读取/写入属性。要拦截读取操作，`handler` 应该有 `get(target, property, receiver)` 方法。读取属性时触发该方法，参数如下：
@@ -75,7 +78,7 @@ for(const key in proxy) console.log(key) // 返回 test，迭代也正常工作�
 
 让我们用 `get` 实现对象的默认值。
 
-通常，当人们尝试获取不存在的数组项时，他们会得到 `undefined`, 但是我们会将常规数组包装到代理中，以捕获读取操作并在没有此类属性的情况下返回 0：
+通常，当我们尝试获取不存在的数组项时，会得到 `undefined`, 但是我们可以将常规数组包装到代理中，以捕获读取操作并在没有此属性的情况下返回 0：
 ```js
 let numbers = [0, 1, 2]
 
@@ -174,8 +177,8 @@ numbers.push("test") // TypeError （proxy 的 `set` 操作返回 false）
 这些方法在细节上有所不同：
 - `Object.getOwnPropertyNames(obj)` 返回非 `Symbol` 键
 - `Object.getOwnPropertySymbols(obj)`  返回 `Symbol` 键
-- `Object.keys/values(obj)` 返回带有 `enumerable` 标记的非 `Symbol` 键值对
-- `for..in` 循环遍历所有带有 `enumerable` 标记的非 `Symbol` 键，以及原型对象的键
+- `Object.keys/values(obj)` 返回带有 `enumerable` 标记 (可枚举) 的非 `Symbol` 键值对
+- `for..in` 循环遍历所有带有 `enumerable` 标记 (可枚举) 的非 `Symbol` 键，以及原型对象的键
 
 在下面的示例中，我们使用 `ownKeys` 钩子拦截 `for..in` 对 `user` 的遍历，还使用 `Object.keys` 和 `Object.values` 来跳过以下划线 `_` 开头的属性：
 ```js
@@ -191,8 +194,8 @@ user = new Proxy(user, {
   }
 })
 
-// "ownKeys" 过滤掉le _password
-for(let key in user) console.log(key) // name，age
+// "ownKeys" 过滤掉了 _password
+for(const key in user) console.log(key) // name，age
 
 // 对这些方法同样有效：
 console.log(Object.keys(user)) // name, age
@@ -236,7 +239,7 @@ console.log(Object.keys(user)) // ['a', 'b', 'c']
 ```
 是不是很有趣？
 ### 使用 `deleteProperty` 拦截属性删除
-有一个普遍的约定，即下划线 `_` 前缀的属性和方法是内部的，不应从对象外部访问它们。
+在类的私用属性在被引入 JavaScript 标准之前，我们通常有一个普遍的约定，即以下划线 `_` 为前缀的属性和方法是内部私有的，不应从对象外部访问它们。
 
 从技术上讲，这是可能的，我们需要这些钩子进行代理：
 - `get` —— 读取此类属性时抛出错误
@@ -275,7 +278,7 @@ user = new Proxy(user, {
       return true // 记得返回 true
     }
   },
-  ownKeys(target) { // 拦截读取属性列表
+  ownKeys(target) { // 拦截属性遍历
     return Object.keys(target).filter(key => !key.startsWith('_'))
   }
 })
@@ -322,7 +325,7 @@ user = new Proxy(/* ... */)
 
 该解决方案通常可行，但并不理想，如果我们将未代理的原目标对象传给了方法，那对象方法可能会将它传递到其它地方，这样就会引起混乱：哪个是原始对象，哪个是目标对象。而且，一个对象可能会被代理多次（多个代理可能会对该对象添加不同的“调整”），产生意想不到的后果。
 
-因此，在任何地方都不应使用这种代理。现代 Javascript 引擎原生支持[类私有属性](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Classes/Private_class_fields)，以 `#` 作为前缀, 所以 `Proxy` 并不是必需的。
+因此，在任何地方都不应使用这种代理。现代 Javascript 原生支持[类私有属性](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Classes/Private_class_fields)，以 `#` 作为前缀, 所以这里使用 Proxy 的方案并不是最好的选择。
 
 ### 使用 `has` 钩子拦截属性检查
 用 `has` 钩子拦截 `in` 操作符，对应的钩子为 `has(target, property)`：
@@ -348,7 +351,7 @@ console.log(50 in range) // false
 
 ### 使用 `apply` 钩子代理函数调用
 
-`apply(target, thisArg, args)` 钩子能使代理以函数的方式被调用：
+`apply(target, thisArg, args)` 钩子在代理对象以函数的方式被执行时调用：
 - `target` —— 目标函数
 - `thisArg` ——  `this` 的值
 - `args` —— 参数列表
@@ -377,9 +380,9 @@ sayHi("John") // Hello, John! （3秒后）
 
 ## Reflect
 
-`Reflect` 是一个内置对象，可简化的创建 `Proxy`
+`Reflect` 是一个内置对象，可简化创建 `Proxy` 的过程。
 
-以前的内部方法，比如 `[[Get]]`，`[[Set]]` 等等都只是规范，不能直接调用。`Reflect` 对象使调用这些内部方法成为可能，它的方法是内部方法的最小包装：
+上面说到的内部方法，比如 `[[Get]]`，`[[Set]]` 等等都只是规范，不能直接调用。`Reflect` 对象使调用这些内部方法成为可能，它的方法是内部方法的最小包装：
 
 |操作|Reflect 调用|内部方法|
 |:---:|:---:|:---:|
@@ -424,15 +427,15 @@ user.name = "Pete" // shows "SET name=Pete"
 - `Reflect.get` 读取一个对象属性
 - `Reflect.set` 写入对象属性，成功返回 `true` ，否则返回 `false`
 
-就是说，一切都很简单：如果钩子想要将调用转发给原始对象，则只需使用相同的参数调用 `Reflect.<method>` 就足够了。
+就是说，一切都很简单：如果钩子想要将调用转发给原始对象，则只需使用相同的参数调用 `Reflect.<method>` 就行了，省心省事。
 
 在大多数情况下，我们不使用 `Reflect` 也可以完成相同的事情，例如，使用 `Reflect.get(target, prop, receiver)` 读取属性可以替换为 `target[prop]`，尽管有一些细微的差别。
 
 ### 代理一个 getter
 
-让我们看一个示例，说明为什么 `Reflect.get` 更好。我们还将看到为什么 `get/set` 有第四个参数 `receiver`，而我们以前没有使用过它。
+让我们看一个示例，来说明为什么 `Reflect.get` 更好。我们还将看到为什么 `get/set` 有第四个参数 `receiver`，而我们以前没有使用过它。
 
-我们有一个带有一个 `_name` 属性和一个 `getter` 的对象 `user` 对象：
+我们有一个带有一个 `_name` 属性和一个 `getter` 的对象 `user`：
 ```js
 const user = {
   _name: 'Guest',
@@ -451,7 +454,7 @@ console.log(userProxy.name) // Guest
 ```
 这个 `get` 钩子在这里是透明的，它返回原来的属性，不会做别的任何事情，对于我们的示例而言，这就足够了。
 
-但是让我们将示例变得更加复杂：
+让我们将示例变得更加复杂：
 ```js
 const user = {
   _name: 'Guest',
@@ -478,12 +481,12 @@ alert(admin.name) // 输出：Guest （？！？）
 另一个对象 `admin` 从 `user` 继承后，我们可以观察到错误的行为，读取 `admin.name` 应该返回 `'Admin'`，而不是 `'Guest'`。
 
 问题出现在（1）中：
-1. 当我们读取 `admin.name`，由于 `admin` 对象自身没有对应的的属性，搜索将转到其原型上。
+1. 当我们读取 `admin.name`，由于 `admin` 对象自身没有这个属性，搜索将转到其原型对象上。
 2. 原型是 `userProxy`
 3. 从代理读取 `name` 属性时，`get` 钩子会触发并从原始对象返回 `target[prop]`
-4. 当调用 `target[prop]` 时，若 `prop` 是一个 getter，它将在 this=target 上下文中运行其代码。因此，结果是来自原始对象 `target` （即 `user`）的 `this._name`
+4. 当调用 `target[prop]` 时，若 `prop` 是一个 getter，它的 `this` 将指向 `target`。因此，结果是来自原始对象 `target` （即 `user`）的 `this._name`
 
-为了解决这种问题，我们需要用到 `get` 钩子的第三个参数 `receiver`。它保证传递正确的 `this` 给 `getter`。那如何为 `getter` 传递上下文呢？对于常规函数，我们可以使用 `call/apply`，但这是一个 `getter`，它不能被调用的，只能被访问。
+为了解决这种问题，我们需要用到 `get` 钩子的第三个参数 `receiver`。它保证传递正确的 `this` 给 `getter`。那如何为 `getter` 传递上下文呢？对于常规函数，我们可以使用 `call/apply`，但这是一个 `getter`，它不能被调用，只能被访问。
 
 `Reflect.get` 可以做到，如果我们使用它，一切都会正常运行：
 ```js
@@ -510,7 +513,7 @@ alert(admin.name) // 输出：Admin （？！？）
 ```
 现在 `receiver` 保留了对正确 `this` 的引用，该引用将在 (1) 行中使用 `Reflect.get` 传递给 `getter`。
 
-`Reflect` 调用的命名方式与 `Proxy` 钩子完全相同，并且接受相同的参数。因此我们可以将钩子重写得更短：
+`Reflect` 调用的命名方式与 `Proxy` 钩子完全相同，并且接受相同的参数。因此我们可以将钩子重写得更简洁：
 ```js
 get(target, prop, receiver) {
   return Reflect.get(...arguments)
@@ -520,9 +523,9 @@ get(target, prop, receiver) {
 
 ## Proxy 的局限
 
-代理提供了一种独特的方法，可以在最底层更改或调整现有对象的行为。但是，它并不完。
+代理提供了一种独特的方法，可以在最底层更改或调整现有对象的行为。但是，它并不完美。
 ### 内部插槽（Internal slots）
-许多内置对象，例如 `Map`, `Set`, `Date`, `Promise` 等等都使用了所谓的 “内部插槽”。它们类似于属性，但仅限于内部使用，仅用于规范目的。例如， `Map` 将项目存储在 `[[MapData]]` 中。内置方法直接访问它们，而不通过 `[[Get]]/[[Set]]` 内部方法。
+许多内置对象，例如 `Map`, `Set`, `Date`, `Promise` 等等都使用了所谓的 “内部插槽”。它们类似于属性，但仅限于内部使用，仅用于规范目的。例如，`Map` 将数据存储在 `[[MapData]]` 中，内置方法直接访问它们，而不通过 `[[Get]]/[[Set]]` 内部方法。
 
 这就是问题。在像这样的内置对象被代理后，代理对象没有这些内部插槽，因此内置方法将失败。
 
@@ -554,7 +557,7 @@ console.log(proxy.get('test')) // 1 (works!)
 ### 私有字段
 类的私有字段也会发生类似的情况。
 
-例如，`getName()` 方法访问私有的 `#name` 属性会在代理后中断：
+例如，`getName()` 方法访问私有的 `#name` 属性，这会在代理后出错：
 ```js
 class User {
   #name = "Guest"
@@ -571,7 +574,7 @@ user = new Proxy(user, {})
 console.log(user.getName()) // Error
 ```
 
-原因是专用字段是使用内部插槽实现的。JavaScript 访问它们时不使用 `[[Get]]/[[Set]]`。在调用 `getName()` 时 `this` 的值是代理后的 `user`，它没有带私有字段的插槽。
+原因是私有字段是使用内部插槽实现的。JavaScript 访问它们时不使用 `[[Get]]/[[Set]]`。在调用 `getName()` 时 `this` 的值是代理后的 `user`，它没有带私有字段的插槽。
 
 再次，使用 `bind` 方法的可以使它恢复正常：
 ```js
@@ -597,7 +600,7 @@ console.log(user.getName()) // Guest
 该解决方案也有缺点：将原始对象暴露给方法，可能使其进一步传递并破坏其他代理功能。
 
 ## 可取消的 Proxy
-假设我们有一个资源，并且想随时关闭对该资源的访问 我们可以做的是将其包装成可撤销的代理，而没有任何钩子。这样的代理会将操作转发给对象，我们可以随时将其禁用。语法：
+假设我们有一个资源，并且想随时关闭对该资源的访问 我们可以将其包装成可撤销的代理（没有任何钩子），这样的代理会将操作转发给目标对象，我们也可以随时将其禁用。语法：
 ```js
 const { proxy, revoke } = Proxy.revocable(target, handler)
 ```
@@ -642,7 +645,9 @@ console.log(proxy.data) // Error
 这里使用 `WeakMap` 而不是 `Map` ，是因为 `WeakMap` 不会阻止垃圾回收。如果代理对象变得“无法访问”（例如，没有变量再引用它），则 `WeakMap` 允许将其与它的 `revoke` 对象一起从内存中删除，因为我们不再需要它了。
 
 ## 几个用例
+
 ### 数组负索引
+
 像这样：
 ```js
 const array = [1, 2, 3]
@@ -672,7 +677,9 @@ array[-1] // 3
 array[-2] // 2
 array[-3] // 1
 ```
+
 ### Observable
+
 实现一个使对象可观察的函数 `makeObservable(target)`：
 ```js
 const handlers = Symbol('handlers')

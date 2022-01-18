@@ -1,11 +1,11 @@
 # 什么是柯里化 (Currying)？
 <PubDate date="2020/10/17"/>
 
-[柯里化（Currying）](https://en.wikipedia.org/wiki/Currying)是一种关于函数的高阶技术，它是一种函数的转换，将一个函数调用从 `f(a, b, c)` 的形式转换为 `f(a)(b)(c)` 的调用形式。柯里化不会调用函数，它只是对函数进行转换。
+[柯里化（Currying）](https://en.wikipedia.org/wiki/Currying)是一种关于函数的高阶技术，它是一种对函数的转换，将一个函数调用从 `f(a, b, c)` 的形式转换为 `f(a)(b)(c)` 的形式。柯里化本身不会调用函数，它只是对函数进行转换。
 
 让我们先来看一个例子，以更好地理解我们正在讲的内容，然后再进行一个实际应用。
 
-我们将创建一个辅助函数 `curry(f)`，该函数将对两个参数的函数 `f` 执行柯里化。换句话说，对于两个参数的函数 `f(a, b)` 执行 `curry(f)` 会将其转换为以 `f(a)(b)` 形式运行的函数：
+我们将创建一个辅助函数 `curry(f)`，该函数将对两个参数的函数 `f` 执行柯里化。换句话说，对于两个参数的函数 `f(a, b)` 执行 `curry(f)` 会将其转换为以 `f(a)(b)` 形式调用的函数：
 ```js
 // curry(f) 执行柯里化转换
 function curry(f) {
@@ -51,7 +51,7 @@ function log(date, importance, message) {
   console.log(`[${date.getHours()}:${date.getMinutes()}] [${importance}] ${message}`)
 }
 ```
-让我们将它柯里化！
+让我们将它柯里化：
 ```js
 log = _.curry(log)
 ```
@@ -59,7 +59,7 @@ log = _.curry(log)
 ```js
 log(new Date(), "DEBUG", "some debug")  // log(a, b, c)
 ```
-但是也可以以柯里化形式运行：
+也可以以柯里化形式运行：
 ```js
 log(new Date())("DEBUG")("some debug") // log(a)(b)(c)
 ```
@@ -71,16 +71,17 @@ const logNow = log(new Date())
 // 使用它
 logNow("INFO", "message") // [HH:mm] INFO message
 ```
-现在，`logNow` 是具有固定第一个参数的 `log`，换句话说，就是更简短的”偏应用函数（partially applied function）”或“偏函数（partial）”。
+现在，`logNow` 是具有固定第一个参数的 `log`，换句话说，就是更简短的“偏应用函数（partially applied function）”或“偏函数（partial）”。
 
 我们可以更进一步，为当前的调试日志（debug log）提供便捷函数：
 ```js
-let debugNow = logNow("DEBUG")
+const debugNow = logNow("DEBUG")
 
 debugNow("message") // [HH:mm] DEBUG message
 ```
 
 ## 柯里化高级实现
+
 实现代码相当简洁：
 ```js
 function curry(func) {
@@ -103,10 +104,10 @@ function curry(func) {
 用例：
 ```js
 function sum(a, b, c) {
-  return a + b + c;
+  return a + b + c
 }
 
-const curriedSum = curry(sum);
+const curriedSum = curry(sum)
 
 curriedSum(1, 2, 3) // 6，仍然可以被正常调用
 curriedSum(1)(2,3) // 6，对第一个参数的柯里化
