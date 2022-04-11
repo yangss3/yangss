@@ -1,4 +1,4 @@
-# A blog template powered by VitePress and Vue 3
+# My personal blog
 
 ## Features
 
@@ -11,6 +11,4 @@
 - [x] `unplugin-vue-components` for component auto importing
 - [x] `unplugin-icons` for icons
 - [x] Dark mode
-- [x] ESLint
-- [x] Conventional commits
 - [x] SSG

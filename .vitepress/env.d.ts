@@ -1,19 +1,15 @@
 /// <reference types="vite/client" />
-/// <reference types="vite-plugin-icons/client" />
+/// <reference types="unplugin-icons/types/vue3" />
+
 
 declare module '*.vue' {
-  import { DefineComponent } from 'vue'
+  import type { DefineComponent } from 'vue'
   // eslint-disable-next-line @typescript-eslint/ban-types
   const component: DefineComponent<{}, {}, any>
   export default component
 }
 
-declare module 'vitepress/theme' {
-  const theme: any
-  export default theme
-}
-
-declare module '~icons/*' {
-  const icon: any
-  export default icon
+declare module 'postcss-preset-env' {
+  const preset: any
+  export default preset
 }

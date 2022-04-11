@@ -1,3 +1,15 @@
+<script lang="ts" setup>
+import DefaultTheme from 'vitepress/theme'
+import { withBase } from 'vitepress'
+import { useHead } from '@vueuse/head'
+const { Layout } = DefaultTheme
+useHead({
+  link: [
+    { rel: 'icon', href: withBase('/favicon.ico') }
+  ]
+})
+</script>
+
 <template>
   <Layout>
     <template #navbar-search>
@@ -13,18 +25,6 @@
     </template>
   </Layout>
 </template>
-
-<script lang="ts" setup>
-import DefaultTheme from 'vitepress/theme'
-import { withBase } from 'vitepress'
-import { useHead } from '@vueuse/head'
-const { Layout } = DefaultTheme
-useHead({
-  link: [
-    { rel: 'icon', href: withBase('/favicon.ico') }
-  ]
-})
-</script>
 
 <style>
 @import '../style/var.css';

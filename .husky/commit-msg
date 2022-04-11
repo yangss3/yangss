@@ -1,4 +1,0 @@
-#!/bin/sh
-. "$(dirname "$0")/_/husky.sh"
-
-node ./node_modules/@yangss/init-git-repo/dist/scripts/validate-commit-msg.js

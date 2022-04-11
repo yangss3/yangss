@@ -6,13 +6,10 @@ import TableOfContents from '@/components/TableOfContents.vue'
 import PersonalProjects from '@/components/PersonalProjects.vue'
 import PubDate from '@/components/PubDate.vue'
 import { createHead } from '@vueuse/head'
-// import './style/var.css'
-// import './style/base.css'
-// import './style/code.css'
 
 const head = createHead()
 
-export default <Theme> {
+export default {
   ...DefaultTheme,
   Layout,
   enhanceApp: ({ app }) => {
@@ -21,4 +18,4 @@ export default <Theme> {
     app.component('PubDate', PubDate)
     app.use(head)
   }
-}
+} as Theme
