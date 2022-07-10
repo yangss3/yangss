@@ -1,0 +1,1 @@
+import{_ as n,c as s,o as a,a as t}from"./app.144f2fe4.js";const y='{"title":"Type Challenges","description":"","frontmatter":{},"headers":[],"relativePath":"notes/type-challenges.md"}',p={},o=t("",23),e=[o];function c(l,k,r,i,u,d){return a(),s("div",null,e)}var w=n(p,[["render",c]]);export{y as __pageData,w as default};

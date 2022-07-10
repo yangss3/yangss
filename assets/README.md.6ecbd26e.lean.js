@@ -1,1 +1,0 @@
-import{_ as e,c as i,o as a,a as o}from"./app.ace6221f.js";const f='{"title":"My personal blog","description":"","frontmatter":{},"headers":[{"level":2,"title":"Features","slug":"features"}],"relativePath":"README.md"}',t={},l=o("",3),r=[l];function n(s,c,d,_,u,p){return a(),i("div",null,r)}var x=e(t,[["render",n]]);export{f as __pageData,x as default};

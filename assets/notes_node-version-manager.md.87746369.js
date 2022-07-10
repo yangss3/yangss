@@ -1,0 +1,22 @@
+import{_ as n,c as s,o as a,a as e}from"./app.144f2fe4.js";const v='{"title":"Node \u7248\u672C\u7BA1\u7406\u5668","description":"","frontmatter":{},"headers":[{"level":2,"title":"NVS \u5E38\u7528\u547D\u4EE4","slug":"nvs-\u5E38\u7528\u547D\u4EE4"}],"relativePath":"notes/node-version-manager.md"}',o={},t=e(`<h1 id="node-\u7248\u672C\u7BA1\u7406\u5668" tabindex="-1">Node \u7248\u672C\u7BA1\u7406\u5668 <a class="header-anchor" href="#node-\u7248\u672C\u7BA1\u7406\u5668" aria-hidden="true">#</a></h1><p>\u5728\u5F00\u53D1\u8FC7\u7A0B\u4E2D\uFF0C\u4E0D\u540C\u7684\u9879\u76EE\u53EF\u80FD\u4F9D\u8D56\u4E0D\u540C\u7684 Node \u7248\u672C\uFF0C\u56E0\u6B64\u9700\u8981\u80FD\u5728\u672C\u5730\u65B9\u4FBF\u7684\u5207\u6362\u5230\u4E0D\u540C\u7684 Node \u7248\u672C\u3002\u76EE\u524D\u6709\u5F88\u591A\u6D41\u884C\u7684 Node \u7248\u672C\u7BA1\u7406\u5DE5\u5177\uFF0C\u4F8B\u5982 <code>nvm</code>, <code>n</code>, <code>nvs</code> \u7B49\u7B49\u3002</p><p>\u4F46\u662F\u524D\u4E24\u8005\u4E0D\u652F\u6301 Windows \u5E73\u53F0\uFF0C\u867D\u7136\u793E\u533A\u4E13\u95E8\u63D0\u4F9B\u4E86 Windows \u7248\u672C\u7684 <code>nvm</code>: <a href="https://github.com/coreybutler/nvm-windows" target="_blank" rel="noopener noreferrer"><code>nvm-windows</code></a> \uFF0C\u4F46\u6211\u8FD8\u662F\u66F4\u63A8\u8350\u4F7F\u7528 <a href="https://github.com/jasongin/nvs" target="_blank" rel="noopener noreferrer"><code>nvs</code></a>\uFF0C\u56E0\u4E3A\u5B83\u8DE8\u5E73\u53F0\uFF0C\u800C\u4E14\u4F7F\u7528\u8D77\u6765\u975E\u5E38\u65B9\u4FBF\u3002</p><h2 id="nvs-\u5E38\u7528\u547D\u4EE4" tabindex="-1">NVS \u5E38\u7528\u547D\u4EE4 <a class="header-anchor" href="#nvs-\u5E38\u7528\u547D\u4EE4" aria-hidden="true">#</a></h2><div class="language-bash"><pre><code>nvs <span class="token function">add</span> latest            <span class="token comment"># \u5B89\u88C5\u6700\u65B0\u7248\u5230\u672C\u5730</span>
+nvs <span class="token function">add</span> lts               <span class="token comment"># \u5B89\u88C5 LTS \u7248\u5230\u672C\u5730</span>
+nvs <span class="token function">add</span> <span class="token number">10</span>                <span class="token comment"># \u5B89\u88C5 major \u7248\u672C\u4E3A 10 \u7684\u6700\u9AD8\u7248\u672C\u5230\u672C\u5730</span>
+nvs <span class="token function">add</span> <span class="token number">14.15</span>.1           <span class="token comment"># \u5B89\u88C5 14.15.1 \u5230\u672C\u5730</span>
+
+nvs <span class="token function">rm</span> <span class="token operator">&lt;</span>version<span class="token operator">&gt;</span>          <span class="token comment"># \u79FB\u9664\u6307\u5B9A\u7684\u7248\u672C</span>
+
+nvs use lts               <span class="token comment"># \u5728\u5F53\u524D\u7684 shell \u73AF\u5883\u4E2D\u4F7F\u7528 LTS \u7248\u672C</span>
+nvs use <span class="token number">10</span>                <span class="token comment"># \u5728\u5F53\u524D shell \u73AF\u5883\u4E2D\u4F7F\u7528\u672C\u5730 major \u7248\u672C\u4E3A 10 \u7684\u6700\u9AD8\u7248\u672C</span>
+
+nvs <span class="token function">link</span> lts              <span class="token comment"># \u5C06 LTS \u7248\u672C\u8BBE\u7F6E\u4E3A\u9ED8\u8BA4\u7248\u672C\uFF08\u8DE8 shell\uFF09</span>
+nvs unlink lts            <span class="token comment"># \u5C06 LTS \u4ECE\u9ED8\u8BA4\u7248\u672C\u79FB\u9664</span>
+
+nvs <span class="token function">ls</span>                    <span class="token comment"># \u5217\u51FA\u672C\u5730\u5DF2\u5B89\u88C5\u7684\u6240\u6709\u7248\u672C</span>
+nvs ls-remote             <span class="token comment"># \u5217\u51FA\u53EF\u4ECE\u8FDC\u7A0B\u4E0B\u8F7D\u7684\u6240\u6709\u7248\u672C</span>
+nvs ls-remote <span class="token number">16</span>          <span class="token comment"># \u5217\u51FA\u53EF\u4ECE\u8FDC\u7A0B\u4E0B\u8F7D\u7684\u4E14 major \u7248\u672C\u4E3A 16 \u7684\u6240\u6709\u7248\u672C</span>
+
+nvs <span class="token builtin class-name">alias</span> jesus <span class="token number">14.15</span>.1   <span class="token comment"># \u5C06 jesus \u8BBE\u7F6E\u4E3A 14.15.1 \u7684\u522B\u540D</span>
+nvs <span class="token builtin class-name">alias</span>                 <span class="token comment"># \u5217\u51FA\u6240\u6709\u522B\u540D</span>
+nvs use jesus             <span class="token comment"># \u4F7F\u7528\u522B\u540D\u5207\u6362\u7248\u672C</span>
+
+</code></pre></div>`,5),c=[t];function p(l,r,d,m,i,k){return a(),s("div",null,c)}var _=n(o,[["render",p]]);export{v as __pageData,_ as default};
